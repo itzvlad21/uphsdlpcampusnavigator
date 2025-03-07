@@ -160,9 +160,18 @@
             <!-- Confirmation Before Navigating -->
             <div id="confirm-navigation-modal" class="modal" style="display: none;">
                 <div class="modal-content">
-                    <p>Do you want to proceed with navigation?</p>
-                    <button id="proceed-navigation-btn" class="btn">Proceed</button>
-                    <button id="cancel-navigation-btn" class="btn">Cancel</button>
+                    <div class="modal-header">
+                        <h3>Start Navigation</h3>
+                        <button class="modal-close" id="close-navigation-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to start navigating to your selected destination?</p>
+                        <p class="destination-info"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancel-navigation-btn">Cancel</button>
+                        <button id="proceed-navigation-btn">Proceed</button>
+                    </div>
                 </div>
             </div>
             
