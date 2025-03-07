@@ -5154,27 +5154,71 @@ document.getElementById("navigate-btn").addEventListener("click", () => {
         paths[categoryKey].paths[pathKey].floors[floorKey] && 
         paths[categoryKey].paths[pathKey].floors[floorKey].rooms[roomKey]
     ) {
+        // Get the selected path details for the modal
+        const startLocation = paths[categoryKey].name;
+        const destination = paths[categoryKey].paths[pathKey].floors[floorKey].rooms[roomKey].name;
+        
+        // Update the destination info in the modal
+        const destinationInfo = document.querySelector('#confirm-navigation-modal .destination-info');
+        if (destinationInfo) {
+            destinationInfo.innerHTML = `
+                <strong>From:</strong> ${startLocation}<br>
+                <strong>To:</strong> ${destination} (${paths[categoryKey].paths[pathKey].name}, ${paths[categoryKey].paths[pathKey].floors[floorKey].name})
+            `;
+        }
+        
         // Show confirmation modal
         const modal = document.getElementById("confirm-navigation-modal");
         modal.style.display = "flex";
+        
+        // Add a small delay before adding the active class to trigger the transition
+        setTimeout(() => {
+            modal.classList.add("active");
+        }, 10);
 
         const selectedRoom = paths[categoryKey].paths[pathKey].floors[floorKey].rooms[roomKey];
 
         // Handle proceed button click
         document.getElementById("proceed-navigation-btn").onclick = () => {
-            modal.style.display = "none";
-            animatePathWithControls(selectedRoom.points, selectedRoom.duration);
+            modal.classList.remove("active");
+            setTimeout(() => {
+                modal.style.display = "none";
+                animatePathWithControls(selectedRoom.points, selectedRoom.duration);
+            }, 300); // Match the transition duration in CSS
         };
 
         // Handle cancel button click
         document.getElementById("cancel-navigation-btn").onclick = () => {
-            modal.style.display = "none";
+            modal.classList.remove("active");
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 300);
         };
+        
+        // Handle close button click
+        const closeButton = document.getElementById("close-navigation-modal");
+        if (closeButton) {
+            closeButton.onclick = () => {
+                modal.classList.remove("active");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            };
+        }
+        
+        // Allow clicking outside the modal to close it
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove("active");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            }
+        });
     } else {
         alert("Please ensure all navigation fields are correctly selected.");
     }
 });
-
 
 // End of Point-to-Point Feature
 
