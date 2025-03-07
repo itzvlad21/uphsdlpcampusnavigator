@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPHSD-LP Campus Navigator</title>
+    <link rel="icon" type="image/x-icon" href="/assets/logo/Logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="https://kit.fontawesome.com/002636da55.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Welcome Animation -->
+    <div class="welcome-animation">
+        <img src="/assets/logo/Logo.png" alt="UPHSD Logo" class="welcome-logo">
+        <div class="welcome-text">Welcome to Campus Navigator</div>
+    </div>
+
+    <!-- Background Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Logo -->
+    <div id="logo">
+        <img src="/assets/logo/Logo.png" alt="UPHSD Logo">
+        <img src="/assets/logo/ccs-logo.png" alt="CCS Logo">
+    </div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">UPHSD-LP Campus Navigator</h1>
+                    <p class="hero-description">
+                        Welcome to the University of Perpetual Help System DALTA Las Piñas Campus
+                        interactive navigation system. Explore our campus with real-time directions, 
+                        interactive 3D maps, and comprehensive facility information.
+                    </p>
+
+                    <div class="features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <div class="feature-text">Interactive 3D campus mapping</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-directions"></i>
+                            </div>
+                            <div class="feature-text">Real-time navigation directions</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="feature-text">Comprehensive facility information</div>
+                        </div>
+                    </div>
+
+                    <a href="learn-more.html" class="about-link">Learn more about the project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Login Section -->
+            <div class="login-section">
+                <h2 class="login-title">Login to Navigate</h2>
+                <form id="login-form" class="login-form">
+                    <div class="input-group">
+                        <i class="input-icon fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Student Number (e.g., 12-3456-789)" pattern="\d{2}-\d{4}-\d{3}" required>
+                        <span class="hint">Format: XX-XXXX-XXX</span>
+                    </div>
+                    <div class="input-group">
+                        <i class="input-icon fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Password" required>
+                        <i id="toggle-password" class="password-toggle fas fa-eye"></i>
+                    </div>
+                    <button type="submit" class="login-button">Login as Student</button>
+                    <div id="error-message"></div>
+                    <div id="success-message"></div>
+                </form>
+
+                <div class="divider">OR</div>
+
+                <button id="guest-login" class="login-button guest-button">
+                    <i class="fas fa-user-friends"></i> Continue as Guest
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; UPHSD-LP Campus Navigator</p>
+    </footer>
+    <script src="/js/students.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/view-password.js"></script>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPHSD-LP Campus Navigator | Home</title>
+    <link rel="icon" type="image/x-icon" href="/assets/logo/Logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="https://kit.fontawesome.com/002636da55.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Background particles effect -->
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="logo-container">
+            <div class="logo-wrapper">
+                <img src="/assets/logo/Logo.png" alt="UPHSD Logo" class="main-logo">
+                <img src="/assets/logo/ccs-logo.png" alt="CCS Logo" class="ccs-logo">
+            </div>
+            <div class="header-text">
+                <h1>UPHSD-LP Campus Navigator</h1>
+            </div>
+        </div>
+        <button id="logout" class="logout-button" aria-label="Logout">
+            <i class="fa-solid fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </header>
+
+    <!-- Main content -->
+    <main class="app-main">
+        <div class="welcome-card">
+            <div class="welcome-text">
+                <h2>Welcome to UPHSD-LP</h2>
+                <p>Explore our campus with the interactive 3D Navigator</p>
+            </div>
+            <div class="welcome-decoration">
+                <div class="decoration-circle"></div>
+                <div class="decoration-line"></div>
+            </div>
+        </div>
+
+        <!-- Feature highlight cards -->
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="feature-details">
+                    <h3>Interactive Map</h3>
+                    <p>Explore campus in 3D</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-directions"></i>
+                </div>
+                <div class="feature-details">
+                    <h3>Real-time Directions</h3>
+                    <p>Find your way easily</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="feature-details">
+                    <h3>Campus Info</h3>
+                    <p>Learn about facilities</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ads section with improved slideshow -->
+        <section class="ads-section">
+            <div class="ads-slideshow">
+                <div class="ads-container">
+                    <div class="ad-slide active">
+                        <img src="/assets/images/ads/admission_2024-2025.png" alt="Admission 2024-2025">
+                        <div class="slide-caption">
+                            <h3>Admissions 2024-2025</h3>
+                            <p>Apply now for the upcoming academic year</p>
+                        </div>
+                    </div>
+                    <div class="ad-slide">
+                        <img src="/assets/images/ads/Skip-The-Lines.jpg" alt="Skip The Lines">
+                        <div class="slide-caption">
+                            <h3>Skip The Lines</h3>
+                            <p>Use our online services for faster processing</p>
+                        </div>
+                    </div>
+                    <div class="ad-slide">
+                        <img src="/assets/images/ads/Nursing-Licensure-Examination-Passer-May-2024.jpg" alt="Nursing Licensure Examination">
+                        <div class="slide-caption">
+                            <h3>Nursing Licensure Exam</h3>
+                            <p>Congratulations to our successful examinees</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slideshow-controls">
+                    <button class="slide-nav prev" aria-label="Previous slide">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slide-dots"></div>
+                    <button class="slide-nav next" aria-label="Next slide">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation call to action -->
+        <section class="navigation-section">
+            <button id="start-navigation" class="primary-button">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Start 3D Campus Navigator</span>
+            </button>
+            <p class="navigation-description">Experience an interactive 3D tour of our campus with real-time directions</p>
+        </section>
+
+        <!-- Quick access menu -->
+        <section class="menu-section">
+            <div class="menu-grid">
+                <button id="qr-button" class="menu-button">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <span>QR Code</span>
+                </button>
+                <button id="announcement-button" class="menu-button">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <span>Announcements</span>
+                </button>
+                <button id="about-button" class="menu-button" onclick="window.location.href='about.html'">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-info-circle"></i>
+                    </div>
+                    <span>About</span>
+                </button>
+                <button id="help-button" class="menu-button" onclick="window.location.href='help.html'">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-question-circle"></i>
+                    </div>
+                    <span>Help</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="/assets/logo/Logo.png" alt="UPHSD Logo" class="footer-logo-img">
+            </div>
+            <p class="copyright">© UPHSD-LP Campus Navigator</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Loading Screen Modal -->
+    <div id="loading-screen" class="modal loading-modal">
+        <div class="loading-content">
+            <div class="loading-animation">
+                <div class="spinner"></div>
+            </div>
+            <p>Loading Campus Navigator...</p>
+        </div>
+    </div>
+
+    <!-- Announcement Modal -->
+    <div id="announcement-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>All Announcements</h3>
+                <button class="modal-close" onclick="closeAnnouncement()" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="announcement-list">
+                    <!-- Modal announcements will be loaded here dynamically -->
+                    <div class="loading-placeholder">
+                        <div class="spinner"></div>
+                        <p>Loading announcements...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Modal -->
+    <div id="qr-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>QR Code</h3>
+                <button class="modal-close" onclick="closeQR()" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="qr-wrapper">
+                    <input id="text" type="text" value="https://perpetualdalta.edu.ph" hidden/>
+                    <div id="qrcode"></div>
+                    <p class="qr-description">Scan to visit UPHSD website</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Logout</h3>
+                <button class="modal-close" id="close-logout-modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to logout from the Campus Navigator?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-logout" class="secondary-button">Cancel</button>
+                <button id="confirm-logout" class="primary-button">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // QR Code Generation
+        document.addEventListener('DOMContentLoaded', function() {
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                width: 250,
+                height: 250,
+                colorDark: "#7F0404",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            const elText = document.getElementById("text");
+            if (elText && elText.value) {
+                qrcode.makeCode(elText.value);
+            }
+
+            // Slideshow functionality
+            initSlideshow();
+            
+            // Modal functionality
+            setupModals();
+        });
+        
+        // Slideshow functionality
+        function initSlideshow() {
+            const slides = document.querySelectorAll('.ad-slide');
+            const dots = document.querySelector('.slide-dots');
+            let currentSlide = 0;
+
+            // Create dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('slide-dot');
+                dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                dot.addEventListener('click', () => goToSlide(index));
+                dots.appendChild(dot);
+            });
+
+            function updateSlides() {
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active');
+                    dots.children[index].classList.remove('active');
+                });
+                slides[currentSlide].classList.add('active');
+                dots.children[currentSlide].classList.add('active');
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlides();
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateSlides();
+            }
+
+            function goToSlide(index) {
+                currentSlide = index;
+                updateSlides();
+            }
+
+            // Event Listeners
+            document.querySelector('.next').addEventListener('click', nextSlide);
+            document.querySelector('.prev').addEventListener('click', prevSlide);
+
+            // Initialize
+            updateSlides();
+            
+            // Auto advance slides
+            setInterval(nextSlide, 5000);
+        }
+        
+        // Modal functionality
+        function setupModals() {
+            // Button click handlers
+            document.getElementById('announcement-button').addEventListener('click', function() {
+                document.getElementById('announcement-modal').classList.add('active');
+            });
+            
+            document.getElementById('qr-button').addEventListener('click', function() {
+                document.getElementById('qr-modal').classList.add('active');
+            });
+
+            // Logout functionality
+            document.getElementById('logout').addEventListener('click', function() {
+                document.getElementById('logout-modal').classList.add('active');
+            });
+
+            document.getElementById('cancel-logout').addEventListener('click', function() {
+                document.getElementById('logout-modal').classList.remove('active');
+            });
+
+            document.getElementById('close-logout-modal').addEventListener('click', function() {
+                document.getElementById('logout-modal').classList.remove('active');
+            });
+
+            document.getElementById('confirm-logout').addEventListener('click', function() {
+                // Clear all session data
+                sessionStorage.clear();
+                localStorage.removeItem('userPreferences');
+                
+                // Show success message
+                const successMessage = document.createElement('div');
+                successMessage.className = 'success-message';
+                successMessage.innerHTML = `
+                    <div class="success-content">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Successfully logged out! Redirecting...</p>
+                    </div>
+                `;
+                document.body.appendChild(successMessage);
+                
+                // Redirect after short delay
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            });
+
+            // Modal close functions
+            window.closeAnnouncement = function() {
+                document.getElementById('announcement-modal').classList.remove('active');
+            }
+            
+            window.closeQR = function() {
+                document.getElementById('qr-modal').classList.remove('active');
+            }
+
+            // Close modals when clicking outside content
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+
+            // Navigation button
+            document.getElementById('start-navigation').addEventListener('click', function() {
+                const userType = sessionStorage.getItem('userType');
+                
+                sessionStorage.setItem('showInstructions', 'true');
+                
+                document.getElementById('loading-screen').classList.add('active');
+                
+                setTimeout(() => {
+                    if (userType === 'guest') {
+                        window.location.href = 'guest.html';
+                    } else if (userType === 'student') {
+                        window.location.href = 'student.html';
+                    } else {
+                        alert('Session error. Please login again.');
+                        window.location.href = 'index.html';
+                    }
+                }, 1000);
+            });
+        }
+    </script>
+    <script src="/js/announcements.js"></script>
+    <script src="/js/advertisement.js"></script>
+    <script src="/js/home-content.js"></script>
+    <script src="/js/home-session.js"></script>
+</body>
+</html>
