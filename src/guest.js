@@ -925,12 +925,92 @@ function animatePathWithControls(pathPoints, duration = 8000) {
     });
 
     // Restart Navigation
+    // Restart Navigation
     restartButton.addEventListener("click", () => {
-        if (currentTween) currentTween.stop();
-        currentSegment = 0;
-        sphere.position.copy(pathPoints[0]);
-        isNavigationComplete = false;
-        moveCameraAndMap();
+        // Only show the restart modal if we're actually in the middle of navigation
+        if (isNavigating) {
+            // Show confirmation modal
+            const modal = document.getElementById("restart-navigation-modal");
+            modal.style.display = "flex";
+            
+            // Add a small delay before adding the active class to trigger the transition
+            setTimeout(() => {
+                modal.classList.add("active");
+            }, 10);
+
+            // Handle confirm button click
+            document.getElementById("confirm-restart-btn").onclick = () => {
+                modal.classList.remove("active");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                    
+                    // Stop current navigation
+                    if (currentTween) {
+                        currentTween.stop();
+                        currentTween = null;
+                    }
+                    
+                    // Cancel any running speech
+                    if (window.speechSynthesis) {
+                        window.speechSynthesis.cancel();
+                    }
+                    
+                    // Reset positions
+                    sphere.position.copy(pathPoints[0]);
+                    youLabel.position.copy(sphere.position);
+                    
+                    // Reset navigation state
+                    currentSegment = 0;
+                    isPaused = false;
+                    isNavigationComplete = false;
+                    
+                    // Update UI controls
+                    pauseButton.disabled = false;
+                    resumeButton.disabled = true;
+                    
+                    // Clear existing arrows and redraw them
+                    if (arrows && Array.isArray(arrows)) {
+                        clearArrows(arrows, scene);
+                        arrows = addArrowsToPath(pathPoints, scene);
+                    }
+                    
+                    // Start navigation again with a small delay to ensure cleanup is complete
+                    setTimeout(() => {
+                        moveCameraAndMap();
+                    }, 100);
+                    
+                }, 300); // Match the transition duration in CSS
+            };
+
+            // Handle cancel button click
+            document.getElementById("cancel-restart-btn").onclick = () => {
+                modal.classList.remove("active");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            };
+            
+            // Handle close button click
+            const closeButton = document.getElementById("close-restart-modal");
+            if (closeButton) {
+                closeButton.onclick = () => {
+                    modal.classList.remove("active");
+                    setTimeout(() => {
+                        modal.style.display = "none";
+                    }, 300);
+                };
+            }
+            
+            // Allow clicking outside the modal to close it
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove("active");
+                    setTimeout(() => {
+                        modal.style.display = "none";
+                    }, 300);
+                }
+            });
+        }
     });
 
     // Cancel Navigation
