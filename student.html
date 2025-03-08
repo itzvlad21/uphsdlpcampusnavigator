@@ -90,7 +90,7 @@
         <!-- Search Bar -->
         <div class="search-container">
             <form id="search">
-                <input type="text" id="search-input" placeholder="Search.." onfocus="showKeyboard()" ontouchstart="showKeyboard()">
+                <input type="text" id="search-input" placeholder="Search..">
                 <img src="/assets/icons/magnifying-glass.svg" id="search-btn">
                 <img src="/assets/icons/x.svg" id="search-clear-btn" onclick="clearSearch()" style="display: none;">
             </form>
@@ -315,6 +315,9 @@
     </div>
 
     <!-- Scripts -->
+    <script src="/js/locations.js"></script>
+    <script src="/js/paths.js"></script>
+    <script src="/js/panoramaHotspots.js"></script>
     <script type="module" src="/src/student.js"></script>
     <script type="module" src="/src/optimizations.js"></script>
     <script>
@@ -325,7 +328,7 @@
             const confirmLogoutBtn = document.getElementById('confirm-logout');
             const closeModalBtn = document.getElementById('close-logout-modal');
             
-            // Show modal when logout button is clicked
+            // Logout Modal EventListener
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -336,7 +339,7 @@
                 });
             }
             
-            // Close modal function
+            // Close modal
             function closeModal() {
                 logoutModal.classList.remove('active');
                 setTimeout(() => {
