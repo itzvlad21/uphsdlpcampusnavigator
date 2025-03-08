@@ -39,7 +39,7 @@ controls.enableZoom = true;
 controls.zoomSpeed = 2;
 controls.minDistance = 120;
 controls.maxDistance = 300;
-controls.enablePan = true;
+controls.enablePan = false
 controls.maxPolarAngle = Math.PI / 2.5;
 controls.update();
 
