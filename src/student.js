@@ -39,214 +39,13 @@ controls.enableZoom = true;
 controls.zoomSpeed = 2;
 controls.minDistance = 120;
 controls.maxDistance = 300;
-controls.enablePan = false;
+controls.enablePan = true;
 controls.maxPolarAngle = Math.PI / 2.5;
 controls.update();
 
-// Lists of locations for markers and navigating
-const locations = {
-    mainEntrance: {
-        position: { x: 68, y: 10, z: 75 },
-        title: 'Main Entrance',
-        description: 'The main entry point to the University of Perpetual Help System DALTA, providing direct access to the campus facilities and serving as a welcoming area for students, staff, and visitors.',
-        tags: ['entrance', 'main']
-    },
-    adminBuilding: {
-        position: { x: -21, y: 10, z: -30 },
-        title: 'Administration Building',
-        description: 'The central administrative building of the university, home to key offices like the Registrar, Cashier, and Information Technology Services (ITS). It also houses classrooms and labs for the College of Computer Studies and the College of Law, ensuring both academic and operational functions are supported.',
-        tags: ['Admin', 'Administration', 'ITS [ID Section]', 'Information Technology', 'Computer Science',
-            'University Cashier [Ground Floor]', 'Registrar Office[Ground Floor]',
-            'Mac Lab [Second Floor]',
-            // College of Law
-            'College of Law [Ground Floor]',
-            // College of Dentistry
-            'College of Dentistry [Ground Floor]',
-            // CCS
-            'CCS - Faculty Office [Second Floor]', 'CCS', 'College of Computer Studies [Second Floor]',
-            // Comms
-            'Department of Communication [Third Floor]',
-            // Rooms
-            'Room 201 [Second Floor]', 'Room 202 [Second Floor]', 'Room 203 [Second Floor]', 'Room 205 [Second Floor]',
-            // Admission Office
-            'Admission Office [Ground Floor]',
-        ],
-        panoramaImages: [
-            { src: '/assets/panoramas/adminBuilding.jpg', label: 'Ground Floor - Inside admin building' },
-            { src: '/assets/panoramas/admissionOffice.jpg', label: 'Ground Floor - Admission Office' },
-            { src: '/assets/panoramas/collegeOfLaw.jpg', label: 'Ground Floor - College of Law' },
-            { src: '/assets/panoramas/cashier.jpg', label: 'Ground Floor - Cashier' },
-            { src: '/assets/panoramas/registrar.jpg', label: 'Ground Floor - Registrar' },
-            { src: '/assets/panoramas/ccsBuilding1.jpg', label: 'Second Floor - College Of Computer Studies' },
-            { src: '/assets/panoramas/ccsBuilding2.jpg', label: 'Second Floor - College Of Computer Studies' },
-            { src: '/assets/panoramas/ccsBuilding3.jpg', label: 'Second Floor - College Of Computer Studies' },
-            { src: '/assets/panoramas/ccsBuilding4.jpg', label: 'Second Floor - College Of Computer Studies' },
-            { src: '/assets/panoramas/ccsBuilding5.jpg', label: 'Second Floor - College Of Computer Studies' }
-        ]
-    },
-    newGradeSchoolBuilding: {
-        position: { x: 10, y: 10, z: -20 },
-        title: 'New Grade School Building',
-        description: 'A modern facility designed for grade school students, featuring updated classrooms and learning spaces tailored to provide an engaging and effective educational experience.',
-        tags: ['New', 'Grade School', 'Grade', "Grade School Principal Office [Ground Floor]"]
-    },
-    oldGradeSchoolBuilding: {
-        position: { x: -90, y: 10, z: -10 },
-        title: 'Old Grade School Building',
-        description: 'A building now repurposed for various administrative functions. It houses offices for the College of Medical Technology, Business Administration, and other departments, providing essential support for academic and administrative activities.',
-        panoramaImages: [
-            { src: '/assets/panoramas/oldGradeSchoolEntrance.jpg', label: 'Ground Floor - Entrance' },
-            { src: '/assets/panoramas/insideOldGradeSchoolBuilding.jpg', label: 'Ground Floor - Inside Entrance' },
-            { src: '/assets/panoramas/schoolDirectorOffice.jpg', label: 'Ground Floor - Office of School Director' },
-            { src: '/assets/panoramas/gspcOffice.jpg', label: 'Ground Floor - Graduate School Program Chairperson Office' },
-            { src: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg', label: "Second Floor - CBAA Dean’s Office and MED TECH Dean’s Office" },
-            { src: '/assets/panoramas/nursingDeanOffice.jpg', label: "Second Floor - Nursing Dean’s Office" },
-            { src: '/assets/panoramas/PTOTRTDeanOffice.jpg', label: "Second Floor - PT/OT/RT Dean’s Office" },
-            { src: '/assets/panoramas/CASDeanOffice.jpg', label: "Second Floor - College of Arts and Science Dean’s Office" },
-            { src: '/assets/panoramas/CPDeanOffice.jpg', label: "Second Floor - College of Pharmacy Dean’s Office" },
-            { src: '/assets/panoramas/EDUCOffice.jpg', label: "Second Floor - College of Education Dean’s Office" },
-            { src: '/assets/panoramas/researchAndDevelopmentCenter.jpg', label: "Second Floor - Research and Development Center" },
-            { src: '/assets/panoramas/VPOffice.jpg', label: "Second Floor - Office of Executive Vice President" },
-        ],
-        tags: ["School Director Office [Ground Floor]", "Graduate School Program Chairperson Office [Ground Floor]",
-            "Community Extension Services Office [Ground Floor]",
-            "Marketing and Sales Office [Ground Floor]",
-            "International Student Affairs Office [Ground Floor]",
-            "Safety and Health Office [Ground Floor]",
-            "HR Office [Ground Floor]",
-            "DEAC [Ground Floor]",
-            "Recruitment Office [Ground Floor]",
-            // Perpetualite Office
-            "Perpetualite Office [Second Floor]",
-            "ETEEAP Office [Second Floor]",
-            "NSRCS & CWTS Office [Second Floor]",
-            "HR Director Office [Second Floor]",
-            // Med Tech
-            "College of Medical Technology", "College of Medical Technology Dean's Office [Second Floor]", "CMT", "CMT Dean's Office [Second Floor]", "Med Tech",
-            // CBAA
-            "College of Business Administration and Accountancy", "College of Business Administration and Accountancy Dean's Office [Second Floor]", "CBAA", "CBAA Dean's Office [Second Floor]",
-            // Nursing
-            "Nursing Dean's Office [Second Floor]",
-            // PT OT RT
-            "PT/OT/RT Dean's Office [Second Floor]", "Phsical Therapy", "Occupational Therapy", "Respiratory Therapist",
-            // CAS
-            "College of Arts and Science", "College of Arts and Science Dean's Office [Second Floor]", "CAS", "CAS Dean's Office [Second Floor]", 
-            // CP
-            "College of Pharmacy", "CP", "College of Pharmacy Dean's Office [Second Floor]",
-            // Research and Development Center
-            "Research and Development Center [Second Floor]",
-            // Office of Executive VP
-            "Office of Executive Vice President [Second Floor]",
-            // SHS Principal Office
-            "SHS Principal's Office [Second Floor]", "Senior High School Principal's Office [Second Floor]"
-        ]
-    },
-    criminologyBuilding: {
-        position: { x: -38, y: 10, z: -18 },
-        title: 'Criminology Building',
-        description: 'A dedicated facility for the College of Criminology, providing classrooms and offices that support academic programs and faculty workspaces.',
-        panoramaImages: [
-            { src: '/assets/panoramas/criminologyDeanOffice.jpg', label: "Ground Floor - Dean's Office" },
-        ],
-        tags: ["College of Criminology Dean's Office [Ground Floor]"],
-
-    },
-    epcHall: {
-        position: { x: -70, y: 10, z: -53 },
-        title: 'EPC Hall',
-        description: 'A building that combines a comprehensive library for research and study with an auditorium used for university seminars, events, and activities.',
-        panoramaImages: [
-            { src: '/assets/panoramas/library.jpg', label: 'Ground Floor - Library' },
-            { src: '/assets/panoramas/auditorium.jpg', label: 'Second Floor - Auditorium'}
-        ],
-        tags: ['University Library [Ground Floor]','Auditorium [Second Floor]', 'Arts and Culture Office [Second Floor]', 'Function Rooms [Second Floor]']
-    },
-    gymBuilding: {
-        position: { x: 37, y: 10, z: -55 },
-        title: 'Gym 1 and 2',
-        description: 'Two large gymnasiums used for physical education classes, training sessions, and sports events, as well as recreational activities for students and staff.',
-        tags: ['GYM', 'Basketball Court', 'Sports Office [Second Floor]']
-    },
-    cithmBuilding: {
-        position: { x: -107, y: 10, z: -63 },
-        title: 'International Hospitality Management Building',
-        description: 'The main facility for the College of International Tourism and Hospitality Management, featuring modern training labs, kitchens, and classrooms designed to prepare students for the hospitality and tourism industries.',
-        panoramaImages: [
-            { src: '/assets/panoramas/hospitalityManagement.jpg', label: 'Ground Floor - Inside the building of International Hospitality Management' },
-            { src: '/assets/panoramas/cithmDeanOffice.jpg', label: "Second Floor - CITHM Dean's Office" }
-        ],
-        tags: ['CITHM', "CITHM Dean's Office [Second Floor]", "College of International Tourism Hospitality Management Dean's Office [Second Floor]",
-            "Security Office [Ground Floor]",
-            "CITHM Library [Fourth Floor]"
-        ]
-    },
-    newCollegeBuilding: {
-        position: { x: -55, y: 10, z: -28 },
-        title: 'New College Building',
-        description: 'A modern facility that serves as a hub for senior high school and college students. It houses the TVET Department, Maritime Affairs offices, and classrooms for various academic programs.',
-        panoramaImages: [
-            { src: '/assets/panoramas/europeanGarden1.jpg', label: 'Ground Floor - European Garden' },
-            { src: '/assets/panoramas/maritimeDeanOffice.jpg', label: 'Third Floor - Office of the Dean College of Maritime Education' },
-            
-        ],
-        tags: [
-            // 1st floor
-            "Accounting Office [Ground Floor]",
-            "Scholarship Office [Ground Floor]",
-            "Engineering and Facilities Office [Ground Floor]",
-            "Property Office [Ground Floor]",
-            "University Clinic [Ground Floor]",
-            // 2nd Floor
-            "Student Affairs Services Office [Second Floor]",
-            "SHS Faculty Office [Second Floor]",
-            "ROTC Offices [Second Floor]",
-            // 3rd Floor
-            "College of Maritime [Third Floor]",
-            "TVET Department [Third Floor]",
-            "Office of the Senior Executive VP for Maritime Affairs [Third Floor]",
-            "Office of the Dean college of Maritime Education [Third Floor]",
-            // 4th Floor
-            "Amphitheater [Fourth Floor]"
-        ]
-    },
-    newHighSchoolBuilding: {
-        position: { x: -78, y: 10, z: -66 },
-        title: 'New High School Building',
-        description: 'A modern building for high school education, featuring advanced classrooms and facilities to support student learning and extracurricular activities.',
-        panoramaImages: [
-            { src: '/assets/panoramas/newHighSchoolBuilding.jpg', label: '' }
-        ],
-        tags: ['high', 'high school', "Administration Office [Ground Floor]", "Junior Highschool Principal Office [Ground Floor]", "New Junior Business High School"]
-    },
-    collegeOfEngineering: {
-        position: { x: -99, y: 10, z: -32 },
-        title: 'College of Engineering Building',
-        description: 'A facility for engineering and architecture programs, equipped with laboratories, classrooms, and resources for technical and practical learning.',
-        panoramaImages: [
-            { src: '/assets/panoramas/engineeringDeanOffice.jpg', label: "College of Engineering Building - Dean's Office [Second Floor]" }
-        ],
-        tags: ['engineering', 'architecture', 'engineer',
-            "College of Electronic and Technologies Dean's Office [Second Floor]",
-            "Autobacs [Third Floor]"
-        ]
-    },
-    medicalCenterMain: {
-        position: { x: 43, y: 10, z: 67 },
-        title: 'Medical Center Main Building',
-        description: 'The primary facility for medical services and training programs, catering to students, faculty, and staff.',
-    },
-    uniMall: {
-        position: { x: 9, y: 10, z: 62 },
-        title: 'University Mall',
-        description: 'A shopping and dining area within the campus that provides retail services and food options for the university community.',
-    },
-    medicalArts: {
-        position: { x: 20, y: 10, z: 84 },
-        title: 'Medical Arts Building',
-        description: 'A facility designed for healthcare education and training, featuring specialized classrooms and offices for medical-related programs.',
-        tags: ['Guidance Office [Second Floor]']
-    }
-};
+const locations = window.locationsData.locations; // Gets all the Locations Data (/js/locations.js)
+const hotspots = window.locationsData.hotspots; // Gets all the Hotspots Data (/js/locations.js)
+const paths = window.pathsData.paths; // Gets all the Paths Data (/js/paths.js)
 
 let currentPopup = null;
 let currentPopupLocation = null;
@@ -268,8 +67,6 @@ function createMarker(locationData, locationId) {
     label.position.set(locationData.position.x, locationData.position.y+2, locationData.position.z);
     scene.add(label);
 
-
-    // Attach event listener to the label
     labelDiv.addEventListener('click', () => {
         const position = locationData.position;
 
@@ -296,85 +93,10 @@ function createMarker(locationData, locationId) {
 }
 
 
-const hotspots = {
-    pathway1: {
-        position: { x: 66, y: 13, z: 57 },
-        title: 'Ulane Pathway',
-        panoramaImage: '/assets/panoramas/pathway_ulane1.jpg',
-        nextHotspot: 'pathway2'
-    },
-    pathway2: {
-        position: { x: 63, y: 13, z: 30 },
-        title: 'Ulane Pathway',
-        panoramaImage: '/assets/panoramas/pathway_ulane2.jpg',
-        previousHotspot: 'pathway1',
-        nextHotspot: 'pathway3'
-    },
-    pathway3: {
-        position: { x: 54, y: 13, z: -36 },
-        title: 'Ulane Pathway',
-        panoramaImage: '/assets/panoramas/pathway_ulane3.jpg',
-        previousHotspot: 'pathway2',
-        nextHotspot: 'pathway4',
-    },
-    pathway4: {
-        position: { x: 26, y: 10, z: -35 },
-        title: 'Ulane Pathway',
-        panoramaImage: '/assets/panoramas/pathway_ulane4.jpg',
-        previousHotspot: 'pathway3',
-        nextHotspot: 'pathway5'
-    },
-    pathway5: {
-        position: { x: -8, y: 10, z: -34 },
-        title: 'Ulane Pathway',
-        panoramaImage: '/assets/panoramas/pathway_ulane5.jpg',
-        previousHotspot: 'pathway4'
-    },
-    trackAndField: {
-        position: { x: -8, y: 10, z: -41 },
-        title: 'Track and Field',
-        panoramaImage: '/assets/panoramas/trackAndField.jpg'
-    },
-    roadPath2: {
-        position: { x: -28, y: 10, z: -40 },
-        title: 'Road Path',
-        panoramaImage: '/assets/panoramas/roadPath2.jpg',
-        nextHotspot: 'roadPath3'
-    },
-    roadPath3: {
-        position: { x: -65, y: 10, z: -32 },
-        title: 'Road Path',
-        panoramaImage: '/assets/panoramas/roadPath3.jpg',
-        nextHotspot: 'roadPath4',
-        previousHotspot: 'roadpath2'
-    },
-    roadPath4: {
-        position: { x: -101, y: 10, z: -44 },
-        title: 'Road Path',
-        panoramaImage: '/assets/panoramas/roadPath4.jpg',
-        previousHotspot: 'roadpath3'
-    },
-    japaneseGarden: {
-        position: { x: -40, y: 10, z: -47 },
-        title: 'Japanese Garden',
-        panoramaImage: '/assets/panoramas/japaneseGarden.jpg'
-    },
-    libraryFront: {
-        position: { x: -76, y: 10, z: -38 },
-        title: 'Library Front',
-        panoramaImage: '/assets/panoramas/libraryFront.jpg'
-    },
-    europeanGarden: {
-        position: { x: -55, y: 10, z: -17 },
-        title: 'European Garden',
-        panoramaImage: '/assets/panoramas/europeanGarden.jpg'
-    }
-};
-
+// Hotspot Functionality
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-//-- Hotspots with Panorama Viewer --\\
 const hotspotPool = {
     geometry: null,
     material: null,
@@ -382,13 +104,163 @@ const hotspotPool = {
     iconMaterials: {}
 };
 
+function createVisibleHotspotMaterial() {
+    return new THREE.MeshStandardMaterial({
+        color: 0x800000,         // Bright yellow
+        roughness: 0.2,          // Slightly glossy
+        metalness: 0.5,          // Metallic look
+        emissive: 0x800000,      // Orange-yellow emissive
+        emissiveIntensity: 1     // Moderate glow
+    });
+}
+
+function createGlowSphere(position, radius) {
+    const glowGeometry = new THREE.SphereGeometry(radius * 1.3, 16, 16);
+    const glowMaterial = new THREE.MeshBasicMaterial({
+        color: 0x9d1515,
+        transparent: true,
+        opacity: 0.5,
+        side: THREE.FrontSide
+    });
+    
+    const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+    glow.position.copy(position);
+    
+    return glow;
+}
+
+function createEnhancedHotspot(hotspotData, hotspotId) {
+    const geometry = new THREE.SphereGeometry(2.2, 20, 20);
+    const material = createVisibleHotspotMaterial();
+    
+    const marker = new THREE.Mesh(geometry, material);
+    marker.position.set(
+        hotspotData.position.x, 
+        hotspotData.position.y, 
+        hotspotData.position.z
+    );
+    
+    const glowSphere = createGlowSphere(
+        new THREE.Vector3(
+            hotspotData.position.x, 
+            hotspotData.position.y, 
+            hotspotData.position.z
+        ), 
+        2.2
+    );
+    
+    marker.userData = { 
+        hotspotId,
+        pulseScale: { value: 1, direction: 1 },
+        glowScale: { value: 1, direction: 0.8 },
+        lastPulseUpdate: 0,
+        glowSphere: glowSphere
+    };
+    
+    scene.add(marker);
+    scene.add(glowSphere);
+    
+    return { marker, glowSphere };
+}
+
+// Hotspot Cleanup
+function removeExistingHotspots() {
+
+    const objectsToRemove = [];
+    
+    scene.children.forEach(object => {
+        if (object.userData && object.userData.hotspotId) {
+            objectsToRemove.push(object);
+            
+            if (object.userData.glowSphere) {
+                objectsToRemove.push(object.userData.glowSphere);
+            }
+        }
+    });
+    
+    objectsToRemove.forEach(object => {
+        scene.remove(object);
+        if (object.geometry) object.geometry.dispose();
+        if (object.material) object.material.dispose();
+    });
+}
+
+function animateHotspots(time) {
+    scene.children.forEach(object => {
+        if (object.userData && object.userData.hotspotId) {
+            if (!object.userData.lastPulseUpdate || time - object.userData.lastPulseUpdate > 16) {
+                const pulseData = object.userData.pulseScale;
+                pulseData.value += pulseData.direction * 0.02;
+                
+                if (pulseData.value >= 1.2 || pulseData.value <= 0.8) {
+                    pulseData.direction *= -1;
+                }
+                
+                object.scale.set(pulseData.value, pulseData.value, pulseData.value);
+                
+                if (object.userData.glowSphere) {
+                    const glowSphere = object.userData.glowSphere;
+                    const glowScale = pulseData.value < 1 ? 2 - pulseData.value : pulseData.value;
+                    
+                    glowSphere.scale.set(glowScale, glowScale, glowScale);
+                    
+                    glowSphere.material.opacity = 0.2 + (pulseData.value - 0.7) * 0.2;
+                }
+                
+                object.userData.lastPulseUpdate = time;
+            }
+        }
+    });
+}
+
+function enhanceHotspots() {
+    removeExistingHotspots();
+    
+    const enhancedHotspots = {};
+    Object.entries(hotspots).forEach(([id, data]) => {
+        enhancedHotspots[id] = createEnhancedHotspot(data, id);
+    });
+    
+    window.enhancedHotspots = enhancedHotspots;
+    
+    const originalAnimate = window.animate || function(time) {
+        requestAnimationFrame(originalAnimate);
+        TWEEN.update();
+        controls.update();
+        
+        if (document.visibilityState === 'visible') {
+            renderer.render(scene, camera);
+            labelRenderer.render(scene, camera);
+        }
+    };
+    
+    window.animate = function(time) {
+        requestAnimationFrame(window.animate);
+        
+        TWEEN.update();
+        controls.update();
+        
+        animateHotspots(time);
+        
+        if (document.visibilityState === 'visible') {
+            renderer.render(scene, camera);
+            labelRenderer.render(scene, camera);
+        }
+    };
+    
+    if (!window.animationRunning) {
+        window.animationRunning = true;
+        window.animate();
+    }
+}
+
+enhanceHotspots();
+
 function createHotspot(hotspotData, hotspotId) {
-    // Reuse geometry if available, otherwise create new one
     if (!hotspotPool.geometry) {
-        hotspotPool.geometry = new THREE.SphereGeometry(2, 16, 16); // Reduced segment count
+        hotspotPool.geometry = new THREE.SphereGeometry(2, 16, 16);
     }
     
-    // Reuse material if available, otherwise create new one
     if (!hotspotPool.material) {
         hotspotPool.material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
     }
@@ -473,292 +345,643 @@ window.closeHotspotPopup = function() {
     }
 };
 
+
+const panoramaResources = {
+    textureCache: new Map(),
+    objectPool: {
+        geometry: null,
+        material: null
+    },
+    activePanorama: null,
+    activeControls: null,
+    activeRenderer: null,
+    activeAnimationId: null
+};
+
+// Refactored loadPanorama function using the optimizations from openFullscreenPanorama
 window.loadPanorama = function(hotspotId) { 
+    // Close any existing panorama views first to prevent resource buildup
     window.closePanorama();
     window.closeHotspotPopup(); 
 
     const hotspot = hotspots[hotspotId]; 
-    if (!hotspot) return;
+    if (!hotspot || !hotspot.panoramaImage) return;
 
-    const panoramaTexture = new THREE.TextureLoader().load(hotspot.panoramaImage);
-    panoramaTexture.minFilter = THREE.LinearFilter;
-    panoramaTexture.magFilter = THREE.LinearFilter;
-    
-    const geometry = new THREE.SphereGeometry(500, 80, 50); // Increased segments for smoother sphere
-    geometry.scale(-1, 1, 1); 
-    const material = new THREE.MeshBasicMaterial({ 
-        map: panoramaTexture,
-        side: THREE.DoubleSide
-    }); 
-    const panorama = new THREE.Mesh(geometry, material); 
+    const imageSrc = hotspot.panoramaImage;
+    const position = hotspot.position;
 
+    // Create overlay
     const fullscreenOverlay = document.createElement('div'); 
     fullscreenOverlay.className = 'fullscreen-panorama-overlay'; 
+    fullscreenOverlay.innerHTML = `
+        <div class="panorama-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading panorama...</div>
+        </div>
+        <button class="close-fullscreen-btn">&times;</button>
+    `;
     document.body.appendChild(fullscreenOverlay); 
 
+    // Show loading indicator
+    const loadingIndicator = fullscreenOverlay.querySelector('.panorama-loading');
+    
+    // Create panorama scene
     const panoramaScene = new THREE.Scene(); 
-    panoramaScene.add(panorama); 
-
-    // Adjust FOV based on device width
-    const fov = window.innerWidth <= 768 ? 90 : 110;
-    const panoramaCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 1000); 
-    panoramaCamera.position.set(0, 0, 0.1); 
-
-    const panoramaRenderer = new THREE.WebGLRenderer({ antialias: true }); 
-    panoramaRenderer.setPixelRatio(window.devicePixelRatio);
-    panoramaRenderer.setSize(window.innerWidth, window.innerHeight); 
-    fullscreenOverlay.appendChild(panoramaRenderer.domElement); 
-
-    const panoramaLabelRenderer = new CSS2DRenderer(); 
-    panoramaLabelRenderer.setSize(window.innerWidth, window.innerHeight); 
-    panoramaLabelRenderer.domElement.style.position = 'absolute'; 
-    panoramaLabelRenderer.domElement.style.top = '0px'; 
-    panoramaLabelRenderer.domElement.style.pointerEvents = 'none'; 
-    fullscreenOverlay.appendChild(panoramaLabelRenderer.domElement);
-
-    const panoramaControls = new OrbitControls(panoramaCamera, panoramaRenderer.domElement); 
-    panoramaControls.enableDamping = true; 
-    panoramaControls.dampingFactor = window.innerWidth <= 768 ? 0.15 : 0.25; // Adjusted for mobile
-    panoramaControls.screenSpacePanning = false; 
-    panoramaControls.minDistance = 0.1; 
-    panoramaControls.maxDistance = 500; 
-    panoramaControls.maxPolarAngle = Math.PI; 
-    panoramaControls.minPolarAngle = 0; 
-    panoramaControls.enableZoom = false; 
-    panoramaControls.enablePan = false; 
-    panoramaControls.rotateSpeed = window.innerWidth <= 768 ? 0.35 : 0.5; // Adjusted for mobile
-
-    const panoramaHotspots = { 
-        pathway4: { 
-            position: { x: 3, y: 0, z: 0 }, 
-            title: 'Track and Field', 
-            description: '', 
-            nextPanorama: 'trackAndField', 
-            availableIn: ['pathway4']
-        },
-        pathway5: { 
-            position: { x: 1, y: 0, z: -1 }, 
-            title: 'Track and Field', 
-            description: '', 
-            nextPanorama: 'trackAndField', 
-            availableIn: ['pathway5']
-        },
-        trackAndField: { 
-            position: { x: -2, y: 0, z: 2 }, 
-            title: 'Ulane Path', 
-            description: '', 
-            nextPanorama: 'pathway4', 
-            availableIn: ['trackAndField']
-        },
-        trackAndField2: { 
-            position: { x: -2, y: 0, z: -0.5 }, 
-            title: 'Ulane Path', 
-            description: '', 
-            nextPanorama: 'pathway5', 
-            availableIn: ['trackAndField']
+    
+    // Check if texture is already in cache
+    let panoramaTexture;
+    if (panoramaResources.textureCache.has(imageSrc)) {
+        panoramaTexture = panoramaResources.textureCache.get(imageSrc);
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
         }
-    }; 
-
-    function createPanoramaHotspot(hotspotData, hotspotId, currentPanoramaId) {
-        if (hotspotData.availableIn && !hotspotData.availableIn.includes(currentPanoramaId)) {
-            return null;
-        }
-    
-        const hotspotGeometry = new THREE.SphereGeometry(0.05, 32, 32);
-        const hotspotMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-        const hotspotMesh = new THREE.Mesh(hotspotGeometry, hotspotMaterial);
-    
-        hotspotMesh.position.copy(hotspotData.position);
-    
-        hotspotMesh.userData = {
-            type: 'panoramaHotspot',
-            id: hotspotId,
-            title: hotspotData.title,
-            description: hotspotData.description,
-            nextPanorama: hotspotData.nextPanorama
+        createPanorama(panoramaTexture);
+    } else {
+        // Create texture loader with loading manager
+        const loadingManager = new THREE.LoadingManager();
+        loadingManager.onProgress = (url, loaded, total) => {
+            // Update loading progress
+            const progress = Math.floor((loaded / total) * 100);
+            const loadingText = fullscreenOverlay.querySelector('.loading-text');
+            if (loadingText) {
+                loadingText.textContent = `Loading panorama... ${progress}%`;
+            }
         };
-    
-        panoramaScene.add(hotspotMesh);
-    
-        return hotspotMesh;
+        
+        const textureLoader = new THREE.TextureLoader(loadingManager);
+        textureLoader.load(
+            imageSrc,
+            (texture) => {
+                // Optimize texture
+                texture.minFilter = THREE.LinearFilter;
+                texture.magFilter = THREE.LinearFilter;
+                texture.generateMipmaps = false; // Disable mipmaps for panoramas
+                
+                // Add to cache
+                panoramaResources.textureCache.set(imageSrc, texture);
+                
+                // Hide loading indicator
+                if (loadingIndicator) {
+                    loadingIndicator.style.display = 'none';
+                }
+                
+                createPanorama(texture);
+            },
+            undefined,
+            (error) => {
+                console.error('Error loading panorama texture:', error);
+                if (loadingIndicator) {
+                    loadingIndicator.innerHTML = 'Error loading panorama';
+                }
+            }
+        );
     }
 
-    const panoramaHotspotMarkers = {}; 
-    Object.entries(panoramaHotspots).forEach(([id, data]) => { 
-        const marker = createPanoramaHotspot(data, id, hotspotId);
-        if (marker) {
-            panoramaHotspotMarkers[id] = marker;
+    function createPanorama(texture) {
+        // Create or reuse sphere geometry
+        let geometry;
+        if (panoramaResources.objectPool.geometry) {
+            geometry = panoramaResources.objectPool.geometry;
+        } else {
+            geometry = new THREE.SphereGeometry(500, 60, 40);
+            geometry.scale(-1, 1, 1);
+            panoramaResources.objectPool.geometry = geometry;
         }
-    }); 
 
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
+        // Create material with the loaded texture
+        const material = new THREE.MeshBasicMaterial({ 
+            map: texture,
+            side: THREE.DoubleSide
+        });
 
-    function onPanoramaHotspotClick(event) {
-        event.preventDefault();
-    
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    
-        raycaster.setFromCamera(mouse, panoramaCamera);
-        const intersects = raycaster.intersectObjects(panoramaScene.children);
-    
-        for (let intersect of intersects) {
-            if (intersect.object.userData && intersect.object.userData.type === 'panoramaHotspot') {
-                const existingPopup = document.querySelector('.panorama-hotspot-popup');
-                if (existingPopup) {
-                    existingPopup.remove();
-                }
-    
-                const popupDiv = document.createElement('div');
-                popupDiv.className = 'panorama-hotspot-popup';
-                popupDiv.innerHTML = `
-                    <h3>${intersect.object.userData.title}</h3>
-                    ${intersect.object.userData.nextPanorama ? 
-                        `<button onclick="window.loadPanorama('${intersect.object.userData.nextPanorama}')">Explore</button>` : 
-                        ''
+        // Create the panorama mesh
+        const panorama = new THREE.Mesh(geometry, material);
+        panoramaScene.add(panorama);
+        
+        // Store active panorama for cleanup
+        panoramaResources.activePanorama = panorama;
+
+        // Adjust FOV based on device width
+        const fov = window.innerWidth <= 768 ? 90 : 110;
+        const panoramaCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 1000);
+        panoramaCamera.position.set(0, 0, 0.1);
+
+        // Create renderer with optimized settings
+        const panoramaRenderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            powerPreference: 'high-performance' // Request high performance mode
+        });
+        panoramaRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
+        panoramaRenderer.setSize(window.innerWidth, window.innerHeight);
+        fullscreenOverlay.appendChild(panoramaRenderer.domElement);
+        
+        // Store renderer for cleanup
+        panoramaResources.activeRenderer = panoramaRenderer;
+
+        // Create controls
+        const panoramaControls = new OrbitControls(panoramaCamera, panoramaRenderer.domElement);
+        panoramaControls.enableDamping = true;
+        panoramaControls.dampingFactor = window.innerWidth <= 768 ? 0.15 : 0.25; // Adjusted for mobile
+        panoramaControls.screenSpacePanning = false;
+        panoramaControls.minDistance = 0.1;
+        panoramaControls.maxDistance = 500;
+        panoramaControls.maxPolarAngle = Math.PI;
+        panoramaControls.minPolarAngle = 0;
+        panoramaControls.enableZoom = false;
+        panoramaControls.enablePan = false;
+        panoramaControls.rotateSpeed = window.innerWidth <= 768 ? 0.35 : 0.5; // Adjusted for mobile
+        
+        // Store controls for cleanup
+        panoramaResources.activeControls = panoramaControls;
+
+        // Get panorama hotspots from the external file
+        let panoramaHotspotMarkers = {};
+        if (window.panoramaHotspotsData && window.panoramaHotspotsData.getHotspotsForPanorama) {
+            const hotspotsForCurrentPanorama = window.panoramaHotspotsData.getHotspotsForPanorama(hotspotId);
+            
+            if (hotspotsForCurrentPanorama) {
+                Object.entries(hotspotsForCurrentPanorama).forEach(([id, data]) => {
+                    const marker = createEnhancedPanoramaHotspot(data, id, hotspotId);
+                    if (marker) {
+                        panoramaHotspotMarkers[id] = marker;
                     }
-                    <button class="popup-close-btn">Close</button>
-                `;
-    
-                const rect = panoramaRenderer.domElement.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
-                
-                popupDiv.style.position = 'absolute';
-                popupDiv.style.left = `${x}px`;
-                popupDiv.style.top = `${y}px`;
-
-                panoramaControls.enabled = false;
-    
-                const closeBtn = popupDiv.querySelector('.popup-close-btn');
-                closeBtn.addEventListener('click', () => {
-                    popupDiv.remove();
-                    panoramaControls.enabled = true;
                 });
-    
-                const fullscreenOverlay = document.querySelector('.fullscreen-panorama-overlay');
-                if (fullscreenOverlay) {
-                    fullscreenOverlay.appendChild(popupDiv);
-                }
-    
-                break;
             }
         }
-    }
-    
-    fullscreenOverlay.addEventListener('click', onPanoramaHotspotClick);
 
-    function animatePanorama() { 
-        requestAnimationFrame(animatePanorama); 
-        panoramaControls.update(); 
+        function createEnhancedPanoramaHotspot(hotspotData, hotspotId, currentPanoramaId) {
+            // Core hotspot with better material
+            const hotspotGeometry = new THREE.SphereGeometry(0.07, 32, 32);
+            const hotspotMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xffcc00,         // Warmer yellow color
+                roughness: 0.2,          // Slightly glossy
+                metalness: 0.5,          // Metallic look
+                emissive: 0xffcc00,      // Self-illumination
+                emissiveIntensity: 0.8   // Glow strength
+            });
+            const hotspotMesh = new THREE.Mesh(hotspotGeometry, hotspotMaterial);
+            hotspotMesh.position.copy(hotspotData.position);
+            
+            // Create outer glow sphere
+            const glowGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffcc00,
+                transparent: true,
+                opacity: 0.4,
+                side: THREE.FrontSide
+            });
+            const glowSphere = new THREE.Mesh(glowGeometry, glowMaterial);
+            glowSphere.position.copy(hotspotData.position);
+            panoramaScene.add(glowSphere);
         
-        Object.values(panoramaHotspotMarkers).forEach(marker => {
-            marker.scale.set(
-                1 + 0.1 * Math.sin(Date.now() * 0.002),
-                1 + 0.1 * Math.sin(Date.now() * 0.002),
-                1 + 0.1 * Math.sin(Date.now() * 0.002)
-            );
+            // Add data to the hotspot
+            hotspotMesh.userData = {
+                type: 'panoramaHotspot',
+                id: hotspotId,
+                title: hotspotData.title,
+                description: hotspotData.description,
+                nextPanorama: hotspotData.nextPanorama,
+                // Animation properties
+                pulseData: {
+                    scale: 1.0,
+                    direction: 0.01, // Speed and direction
+                    min: 0.8,
+                    max: 1.2
+                },
+                glowSphere: glowSphere // Reference to glow sphere for animations
+            };
+        
+            panoramaScene.add(hotspotMesh);
+            return hotspotMesh;
+        }
+
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function onPanoramaHotspotClick(event) {
+            event.preventDefault();
+        
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        
+            raycaster.setFromCamera(mouse, panoramaCamera);
+            const intersects = raycaster.intersectObjects(panoramaScene.children);
+        
+            for (let intersect of intersects) {
+                if (intersect.object.userData && intersect.object.userData.type === 'panoramaHotspot') {
+                    const existingPopup = document.querySelector('.panorama-hotspot-popup');
+                    if (existingPopup) {
+                        existingPopup.remove();
+                    }
+        
+                    const popupDiv = document.createElement('div');
+                    popupDiv.className = 'panorama-hotspot-popup';
+                    popupDiv.innerHTML = `
+                        <h3>${intersect.object.userData.title}</h3>
+                        <p>${intersect.object.userData.description || ''}</p>
+                        ${intersect.object.userData.nextPanorama ? 
+                            `<button onclick="window.loadPanorama('${intersect.object.userData.nextPanorama}')">Explore</button>` : 
+                            ''
+                        }
+                        <button class="popup-close-btn">Close</button>
+                    `;
+        
+                    const rect = panoramaRenderer.domElement.getBoundingClientRect();
+                    const x = event.clientX - rect.left;
+                    const y = event.clientY - rect.top;
+                    
+                    popupDiv.style.position = 'absolute';
+                    popupDiv.style.left = `${x}px`;
+                    popupDiv.style.top = `${y}px`;
+
+                    panoramaControls.enabled = false;
+        
+                    const closeBtn = popupDiv.querySelector('.popup-close-btn');
+                    closeBtn.addEventListener('click', () => {
+                        popupDiv.remove();
+                        panoramaControls.enabled = true;
+                    });
+        
+                    fullscreenOverlay.appendChild(popupDiv);
+                    break;
+                }
+            }
+        }
+        
+        fullscreenOverlay.addEventListener('click', onPanoramaHotspotClick);
+
+        // Animation variables
+        let animationFrameId;
+        let isVisible = true;
+
+        // Visibility API to pause rendering when tab is not visible
+        if (document.hidden !== undefined) {
+            document.addEventListener('visibilitychange', () => {
+                isVisible = !document.hidden;
+                if (!isVisible && animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                } else if (isVisible && !animationFrameId) {
+                    animatePanorama();
+                }
+            });
+        }
+
+        // Animation function with throttled rendering
+        let lastRenderTime = 0;
+        const renderInterval = 1000 / 30; // Aim for 30 FPS to save performance
+
+        function animatePanorama(time) {
+            if (!isVisible) return;
+            
+            animationFrameId = requestAnimationFrame(animatePanorama);
+            panoramaResources.activeAnimationId = animationFrameId;
+            
+            // Only render if controls changed or enough time passed
+            const shouldRender = !lastRenderTime || time - lastRenderTime >= renderInterval || panoramaControls.update();
+            
+            // Animate hotspot markers with improved animation
+            Object.values(panoramaHotspotMarkers).forEach(marker => {
+                if (marker.userData && marker.userData.pulseData) {
+                    const pulse = marker.userData.pulseData;
+                    
+                    // Update scale based on pulse direction
+                    pulse.scale += pulse.direction;
+                    
+                    // Reverse direction at boundaries
+                    if (pulse.scale > pulse.max || pulse.scale < pulse.min) {
+                        pulse.direction *= -1;
+                    }
+                    
+                    // Apply scale to hotspot
+                    marker.scale.set(pulse.scale, pulse.scale, pulse.scale);
+                    
+                    // Animate glow sphere (opposite phase for interesting effect)
+                    if (marker.userData.glowSphere) {
+                        const glowSphere = marker.userData.glowSphere;
+                        const inverseScale = 1.5 - pulse.scale * 0.5; // Inverse phase
+                        glowSphere.scale.set(inverseScale, inverseScale, inverseScale);
+                        
+                        // Also animate opacity
+                        glowSphere.material.opacity = 0.2 + (pulse.scale - pulse.min) * 0.4;
+                    }
+                }
+            });
+            
+            if (shouldRender) {
+                panoramaRenderer.render(panoramaScene, panoramaCamera);
+                lastRenderTime = time;
+            }
+        }
+
+        // Start animation
+        animatePanorama();
+
+        function onPanoramaResize() { 
+            panoramaCamera.aspect = window.innerWidth / window.innerHeight; 
+            panoramaCamera.updateProjectionMatrix(); 
+            panoramaRenderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Update controls and FOV based on device
+            panoramaControls.dampingFactor = window.innerWidth <= 768 ? 0.15 : 0.25;
+            panoramaControls.rotateSpeed = window.innerWidth <= 768 ? 0.35 : 0.5;
+            panoramaCamera.fov = window.innerWidth <= 768 ? 90 : 110;
+            panoramaCamera.updateProjectionMatrix();
+        }
+        
+        window.addEventListener('resize', onPanoramaResize); 
+
+        // Navigation buttons (from original loadPanorama)
+        const navigationContainer = document.createElement('div');
+        navigationContainer.className = 'panorama-navigation-container';
+        fullscreenOverlay.appendChild(navigationContainer);
+
+        const prevButton = document.createElement('button');
+        prevButton.className = 'panorama-nav-btn prev-btn';
+        prevButton.innerHTML = '&#10094;';
+        navigationContainer.appendChild(prevButton);
+
+        const nextButton = document.createElement('button');
+        nextButton.className = 'panorama-nav-btn next-btn';
+        nextButton.innerHTML = '&#10095;'; 
+        navigationContainer.appendChild(nextButton);
+
+        function handleNavigation(direction) {
+            let nextHotspotId = null;
+            
+            if (direction === 'next' && hotspot.nextHotspot) {
+                nextHotspotId = hotspot.nextHotspot;
+            } else if (direction === 'prev' && hotspot.previousHotspot) {
+                nextHotspotId = hotspot.previousHotspot;
+            }
+
+            if (nextHotspotId) {
+                window.loadPanorama(nextHotspotId);
+            }
+        }
+
+        prevButton.addEventListener('click', () => handleNavigation('prev'));
+        nextButton.addEventListener('click', () => handleNavigation('next'));
+
+        prevButton.style.display = hotspot.previousHotspot ? 'block' : 'none';
+        nextButton.style.display = hotspot.nextHotspot ? 'block' : 'none';
+
+        // Close button event
+        const closeButton = fullscreenOverlay.querySelector('.close-fullscreen-btn');
+        closeButton.addEventListener('click', () => {
+            // Properly clean up glow spheres
+            Object.values(panoramaHotspotMarkers).forEach(marker => {
+                if (marker.userData && marker.userData.glowSphere) {
+                    panoramaScene.remove(marker.userData.glowSphere);
+                    if (marker.userData.glowSphere.geometry) {
+                        marker.userData.glowSphere.geometry.dispose();
+                    }
+                    if (marker.userData.glowSphere.material) {
+                        marker.userData.glowSphere.material.dispose();
+                    }
+                }
+            });
+            
+            window.closePanorama();
         });
-        
-        panoramaRenderer.render(panoramaScene, panoramaCamera);
-        panoramaLabelRenderer.render(panoramaScene, panoramaCamera);
-    } 
-    animatePanorama(); 
 
-    const closeButton = document.createElement('button');
-    closeButton.className = 'close-fullscreen-btn';
-    closeButton.innerText = '×';
-    closeButton.addEventListener('click', window.closePanorama);
-    fullscreenOverlay.appendChild(closeButton);
-
-    const navigationContainer = document.createElement('div');
-    navigationContainer.className = 'panorama-navigation-container';
-    fullscreenOverlay.appendChild(navigationContainer);
-
-    const prevButton = document.createElement('button');
-    prevButton.className = 'panorama-nav-btn prev-btn';
-    prevButton.innerHTML = '&#10094;';
-    navigationContainer.appendChild(prevButton);
-
-    const nextButton = document.createElement('button');
-    nextButton.className = 'panorama-nav-btn next-btn';
-    nextButton.innerHTML = '&#10095;'; 
-    navigationContainer.appendChild(nextButton);
-
-    function handleNavigation(direction) {
-        let nextHotspotId = null;
-        
-        if (direction === 'next' && hotspot.nextHotspot) {
-            nextHotspotId = hotspot.nextHotspot;
-        } else if (direction === 'prev' && hotspot.previousHotspot) {
-            nextHotspotId = hotspot.previousHotspot;
-        }
-
-        if (nextHotspotId) {
-            cleanupPanorama();
-            window.loadPanorama(nextHotspotId);
-        }
+        // Prevent context menu
+        fullscreenOverlay.addEventListener('contextmenu', (e) => e.preventDefault());
     }
-
-    prevButton.addEventListener('click', () => handleNavigation('prev'));
-    nextButton.addEventListener('click', () => handleNavigation('next'));
-
-    prevButton.style.display = hotspot.previousHotspot ? 'block' : 'none';
-    nextButton.style.display = hotspot.nextHotspot ? 'block' : 'none';
-
-    function cleanupPanorama() {
-        panoramaControls.dispose(); 
-        panoramaRenderer.dispose(); 
-        panoramaTexture.dispose(); 
-        geometry.dispose(); 
-        material.dispose(); 
-        document.body.removeChild(fullscreenOverlay); 
-        window.removeEventListener('resize', onPanoramaResize);
-    }
-
-    function onPanoramaResize() { 
-        panoramaCamera.aspect = window.innerWidth / window.innerHeight; 
-        panoramaCamera.updateProjectionMatrix(); 
-        panoramaRenderer.setSize(window.innerWidth, window.innerHeight);
-        panoramaLabelRenderer.setSize(window.innerWidth, window.innerHeight);
-        
-        // Update controls and FOV based on device
-        panoramaControls.dampingFactor = window.innerWidth <= 768 ? 0.15 : 0.25;
-        panoramaControls.rotateSpeed = window.innerWidth <= 768 ? 0.35 : 0.5;
-        panoramaCamera.fov = window.innerWidth <= 768 ? 90 : 110;
-        panoramaCamera.updateProjectionMatrix();
-    } 
-    window.addEventListener('resize', onPanoramaResize); 
-
-    fullscreenOverlay.addEventListener('contextmenu', (e) => e.preventDefault()); 
 };
 
-window.closePanorama = function() {
-    const fullscreenOverlay = document.querySelector('.fullscreen-panorama-overlay');
+// Revised openFullscreenPanorama to use the same resource pooling approach
+window.openFullscreenPanorama = function(imageSrc, position) {
+    // Close any existing panorama views first
+    window.closePanorama();
+    
+    // Create overlay
+    const fullscreenOverlay = document.createElement('div');
+    fullscreenOverlay.className = 'fullscreen-panorama-overlay';
+    fullscreenOverlay.innerHTML = `
+        <div class="panorama-loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading panorama...</div>
+        </div>
+        <button class="close-fullscreen-btn">&times;</button>
+    `;
+    document.body.appendChild(fullscreenOverlay);
 
+    // Show loading indicator
+    const loadingIndicator = fullscreenOverlay.querySelector('.panorama-loading');
+    
+    // Close popup if open
+    if (typeof closePopup === 'function') {
+        closePopup();
+    }
+
+    // Create panorama scene
+    const panoramaScene = new THREE.Scene();
+    
+    // Check if texture is already in cache
+    let panoramaTexture;
+    if (panoramaResources.textureCache.has(imageSrc)) {
+        panoramaTexture = panoramaResources.textureCache.get(imageSrc);
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
+        createPanorama(panoramaTexture);
+    } else {
+        // Create texture loader with loading manager
+        const loadingManager = new THREE.LoadingManager();
+        loadingManager.onProgress = (url, loaded, total) => {
+            // Update loading progress
+            const progress = Math.floor((loaded / total) * 100);
+            const loadingText = fullscreenOverlay.querySelector('.loading-text');
+            if (loadingText) {
+                loadingText.textContent = `Loading panorama... ${progress}%`;
+            }
+        };
+        
+        const textureLoader = new THREE.TextureLoader(loadingManager);
+        textureLoader.load(
+            imageSrc,
+            (texture) => {
+                // Optimize texture
+                texture.minFilter = THREE.LinearFilter;
+                texture.magFilter = THREE.LinearFilter;
+                texture.generateMipmaps = false; // Disable mipmaps for panoramas
+                
+                // Add to cache
+                panoramaResources.textureCache.set(imageSrc, texture);
+                
+                // Hide loading indicator
+                if (loadingIndicator) {
+                    loadingIndicator.style.display = 'none';
+                }
+                
+                createPanorama(texture);
+            },
+            undefined,
+            (error) => {
+                console.error('Error loading panorama texture:', error);
+                if (loadingIndicator) {
+                    loadingIndicator.innerHTML = 'Error loading panorama';
+                }
+            }
+        );
+    }
+
+    function createPanorama(texture) {
+        // Create or reuse sphere geometry
+        let geometry;
+        if (panoramaResources.objectPool.geometry) {
+            geometry = panoramaResources.objectPool.geometry;
+        } else {
+            geometry = new THREE.SphereGeometry(500, 60, 40);
+            geometry.scale(-1, 1, 1);
+            panoramaResources.objectPool.geometry = geometry;
+        }
+
+        // Create material with the loaded texture
+        const material = new THREE.MeshBasicMaterial({ 
+            map: texture,
+            side: THREE.DoubleSide
+        });
+
+        // Create the panorama mesh
+        const panorama = new THREE.Mesh(geometry, material);
+        panoramaScene.add(panorama);
+        
+        // Store active panorama for cleanup
+        panoramaResources.activePanorama = panorama;
+
+        // Adjust FOV based on device width
+        const fov = window.innerWidth <= 768 ? 90 : 110;
+        const panoramaCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 1000);
+        panoramaCamera.position.set(0, 0, 0.1);
+
+        // Create renderer with optimized settings
+        const panoramaRenderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            powerPreference: 'high-performance' // Request high performance mode
+        });
+        panoramaRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
+        panoramaRenderer.setSize(window.innerWidth, window.innerHeight);
+        fullscreenOverlay.appendChild(panoramaRenderer.domElement);
+        
+        // Store renderer for cleanup
+        panoramaResources.activeRenderer = panoramaRenderer;
+
+        // Create controls
+        const panoramaControls = new OrbitControls(panoramaCamera, panoramaRenderer.domElement);
+        panoramaControls.enableDamping = true;
+        panoramaControls.dampingFactor = window.innerWidth <= 768 ? 0.15 : 0.25;
+        panoramaControls.screenSpacePanning = false;
+        panoramaControls.minDistance = 0.1;
+        panoramaControls.maxDistance = 500;
+        panoramaControls.maxPolarAngle = Math.PI;
+        panoramaControls.minPolarAngle = 0;
+        panoramaControls.enableZoom = false;
+        panoramaControls.enablePan = false;
+        panoramaControls.rotateSpeed = window.innerWidth <= 768 ? 0.35 : 0.5;
+        
+        // Store controls for cleanup
+        panoramaResources.activeControls = panoramaControls;
+
+        // Animation variables
+        let animationFrameId;
+        let isVisible = true;
+
+        // Visibility API to pause rendering when tab is not visible
+        if (document.hidden !== undefined) {
+            document.addEventListener('visibilitychange', () => {
+                isVisible = !document.hidden;
+                if (!isVisible && animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                } else if (isVisible && !animationFrameId) {
+                    animatePanorama();
+                }
+            });
+        }
+
+        // Animation function with throttled rendering
+        let lastRenderTime = 0;
+        const renderInterval = 1000 / 30; // Aim for 30 FPS to save performance
+
+        function animatePanorama(time) {
+            if (!isVisible) return;
+            
+            animationFrameId = requestAnimationFrame(animatePanorama);
+            panoramaResources.activeAnimationId = animationFrameId;
+            
+            // Only render if controls changed or enough time passed
+            const shouldRender = !lastRenderTime || time - lastRenderTime >= renderInterval || panoramaControls.update();
+            
+            if (shouldRender) {
+                panoramaRenderer.render(panoramaScene, panoramaCamera);
+                lastRenderTime = time;
+            }
+        }
+
+        // Start animation
+        animatePanorama();
+
+        // Resize handler
+        function onPanoramaResize() {
+            panoramaCamera.aspect = window.innerWidth / window.innerHeight;
+            panoramaCamera.updateProjectionMatrix();
+            panoramaRenderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Update controls and FOV
+            panoramaControls.dampingFactor = window.innerWidth <= 768 ? 0.15 : 0.25;
+            panoramaControls.rotateSpeed = window.innerWidth <= 768 ? 0.35 : 0.5;
+            panoramaCamera.fov = window.innerWidth <= 768 ? 90 : 110;
+            panoramaCamera.updateProjectionMatrix();
+        }
+
+        // Add resize listener
+        window.addEventListener('resize', onPanoramaResize);
+
+        // Close button handler
+        const closeButton = fullscreenOverlay.querySelector('.close-fullscreen-btn');
+        closeButton.addEventListener('click', window.closePanorama);
+
+        // Prevent context menu
+        fullscreenOverlay.addEventListener('contextmenu', e => e.preventDefault());
+    }
+};
+
+// Revised closePanorama function to handle proper cleanup
+window.closePanorama = function() {
+    // Cancel any active animations
+    if (panoramaResources.activeAnimationId) {
+        cancelAnimationFrame(panoramaResources.activeAnimationId);
+        panoramaResources.activeAnimationId = null;
+    }
+
+    // Remove panorama overlay
+    const fullscreenOverlay = document.querySelector('.fullscreen-panorama-overlay');
     if (fullscreenOverlay) {
         while (fullscreenOverlay.firstChild) {
             fullscreenOverlay.firstChild.remove();
         }
-        fullscreenOverlay.remove();
+        document.body.removeChild(fullscreenOverlay);
     }
 
-    if (window.currentPanorama) {
-        window.currentPanorama.geometry.dispose();
-        window.currentPanorama.material.dispose();
-        window.currentPanorama.dispose();
-        window.currentPanorama = null;
+    // Dispose renderer
+    if (panoramaResources.activeRenderer) {
+        panoramaResources.activeRenderer.dispose();
+        panoramaResources.activeRenderer = null;
     }
 
-    if (window.panoramaControls) {
-        window.panoramaControls.dispose();
-        window.panoramaControls = null;
+    // Dispose controls
+    if (panoramaResources.activeControls) {
+        panoramaResources.activeControls.dispose();
+        panoramaResources.activeControls = null;
     }
 
-    // Debugging to verify panorama closure
-    console.log("Panorama closed.");
+    // Do NOT dispose geometry or textures as they're cached
+    // Only null the reference to the active panorama
+    panoramaResources.activePanorama = null;
 
+    // Reset camera and scene
     const defaultPosition = { x: 0, y: 250, z: 10 };
     const defaultRotation = { x: 0, y: 0, z: 0 };
 
@@ -782,3830 +1005,48 @@ window.closePanorama = function() {
         })
         .start();
 
+    // Reset DOM elements
     document.getElementById('panorama-viewer').style.display = 'none';
     document.getElementById('panorama-navigation-container').innerHTML = '';
 
+    console.log("Panorama closed and resources cleaned up.");
+
+    // Dispatch event
     const event = new Event("panoramaClose");
     window.dispatchEvent(event);
 };
 
-
-// Point to Point
-const paths = {
-    // [Start - Main Entrance]
-    mainEntrance: {
-        name: "Main Entrance",
-        paths: {
-            toAdminBuilding: {
-                name: "Administration Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-18, 13, -24),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/adminBuilding.jpg'
-                            },
-                            admissionOffice: {
-                                name: "Admission Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-16, 13, -24),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/admissionOffice.jpg'
-                            },
-                            registrar: {
-                                name: "Registrar",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-18, 13, -24),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/registrar.jpg'
-                            },
-                            cashier: {
-                                name: "Cashier",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-17.8, 13, -24),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cashier.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            room201: {
-                                name: "CCS Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-17.8, 13, -24),
-                                    new THREE.Vector3(-22, 13, -24),
-                                    new THREE.Vector3(-22, 14, -24),
-                                    new THREE.Vector3(-20, 14, -24),
-                                    new THREE.Vector3(-19.5, 14, -20),
-                                ],
-                                duration: 1500,
-                                panoramaImage: '/assets/panoramas/ccsBuilding3.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toLibrary: {
-                name: "Library And Auditorium",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Library",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 13, -53)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/library.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Auditorium",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 14, -53)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/auditorium.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toOldGradeSchoolBuilding: {
-                name: "Old Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            schoolDirectorOffice: {
-                                name: "School Director Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-80, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/schoolDirectorOffice.jpg'
-                            },
-                            graduateSchoolProgramChairpersonOffice: {
-                                name: "Graduate School Program Chairperson Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-84, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/gspcOffice.jpg'
-                            }
-                        },
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            cbaa: {
-                                name: "College of Business Administration Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-75, 13, -1),
-                                    new THREE.Vector3(-85, 13, -5),
-                                    new THREE.Vector3(-85, 14, -10),
-                                    new THREE.Vector3(-88, 14, -10),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cbaamedDeanOffice.jpg'
-                            },
-                            medtech: {
-                                name: "College of Medical Technology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cbaamedDeanOffice.jpg'
-                            },
-                            DeansMEDTECH: {
-                                name: "College of Medical Technology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cbaamedDeanOffice.jpg'
-                            },
-                            DeansNURSING: {
-                                name: "College of Nursing Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-83, 14, 3),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/nursingDeanOffice.jpg'
-                            },
-                            DeansPTOTRT: {
-                                name: "College of PT/ OT/ RT Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-82, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/PTOTRTDeanOffice.jpg'
-                            },
-                            DeansCAS: {
-                                name: "College of Arts and Science Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CASDeanOffice.jpg'
-                            },
-                            DeansPharma: {
-                                name: "College of Pharmacy Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-80, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/collegeOfPharmacy.jpg'
-                            },
-                            DeansRESEARCH: {
-                                name: "Research and Development Center ",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-75, 14, 2),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/researchAndDevelopmentCenter.jpg'
-                            },
-                            DeansEDUC: {
-                                name: "College of Education Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/EDUCOffice.jpg'
-                            },
-                            DeansVP: {
-                                name: "Office of Executive Vice President",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/VPOffice.jpg'
-                            },
-                            DeansSHS: {
-                                name: "SHS Principal Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, -1),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/SHSOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCITHM: {
-                name: "College of Tourism and Hospitality Management",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Lobby",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-103, 13, -54),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/hospitalityManagement.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-100, 13, -54),
-                                    new THREE.Vector3(-100, 14, -54),
-                                    new THREE.Vector3(-100, 14, -58),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cithmDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCEAT: {
-                name: "College of Engineering, Architecture and Technologies",
-                floors: {
-                    first: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 14, -31),
-                                    new THREE.Vector3(-98, 14, -32)
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/engineeringDeanOffice.jpg'
-                            }
-                        }
-                    },
-                    
-                }
-            },
-            toCRIM: {
-                name: "College of Criminology Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Criminology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-18, 13, -24),
-                                    new THREE.Vector3(-35, 13, -20),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/criminologyDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewCollegeBuilding: {
-                name: "New College Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-18, 13, -24),
-                                    new THREE.Vector3(-30, 13, -21)
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/europeanGarden1.jpg'
-                            },
-                            accounting: {
-                                name: "Accounting",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-18, 13, -24),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-26, 13, -8)
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/accounting.jpg'
-                            }
-                        }
-                    },
-                    third: {
-                        name: "Third Floor",
-                        rooms: {
-                            martimeDeanOffice: {
-                                name: "College of Maritime Dean's Office",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-18, 13, -24),
-                                    new THREE.Vector3(-30, 13, -21),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-38, 13, -6),
-                                    new THREE.Vector3(-38, 14, -6),
-                                    new THREE.Vector3(-38, 18, -6),
-                                    new THREE.Vector3(-30, 18, -7),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/maritimeDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewGradeSchoolBuilding: {
-                name: "New Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(68, 13, 75),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(-10, 13, -33),
-                                    new THREE.Vector3(-8, 13, -19),
-                                    new THREE.Vector3(-4, 13, -19),
-                                ],
-                                duration: 20000,
-                            }
-                        }
-                    }
-                }
-            },
-        }
-    // [Start - Admin]
-    },
-    adminBuilding: {
-        name: "Administration Building",
-        paths: {
-            toLibrary: {
-                name: "Library And Auditorium",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Library",
-                                points: [
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 13, -53)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/library.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Auditorium",
-                                points: [
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 14, -53)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/auditorium.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toMainEntrance: {
-                name: "Main Entrance",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Entrance",
-                                points: [
-                                    new THREE.Vector3(-18, 13, -24),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-15, 13, -35),
-                                    new THREE.Vector3(-8, 13, -34),
-                                    new THREE.Vector3(1, 13, -33),
-                                    new THREE.Vector3(23, 13, -36),
-                                    new THREE.Vector3(29, 13, -32),
-                                    new THREE.Vector3(54, 13, -35),
-                                    new THREE.Vector3(68, 13, 75)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/pathway_ulane1.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toOldGradeSchoolBuilding: {
-                name: "Old Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            schoolDirectorOffice: {
-                                name: "School Director Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-80, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/schoolDirectorOffice.jpg'
-                            },
-                            graduateSchoolProgramChairpersonOffice: {
-                                name: "Graduate School Program Chairperson Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-84, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/gspcOffice.jpg'
-                            },
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Business Administration Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansMEDTECH: {
-                                name: "College of Medical Technology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansNURSING: {
-                                name: "College of Nursing Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-83, 14, 3),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/nursingDeanOffice.jpg'
-                            },
-                            DeansPTOTRT: {
-                                name: "College of PT/ OT/ RT Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-82, 14, 2),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/PTOTRTDeanOffice.jpg'
-                            },
-                            DeansCAS: {
-                                name: "College of Arts and Science Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 2),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/CASDeanOffice.jpg'
-                            },
-                            DeansPharma: {
-                                name: "College of Pharmacy Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-80, 14, 2),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/CPDeanOffice.jpg'
-                            },
-                            DeansRESEARCH: {
-                                name: "Research and Development Center ",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-75, 14, 2),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/researchAndDevelopmentCenter.jpg'
-                            },
-                            DeansEDUC: {
-                                name: "College of Education Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/EDUCOffice.jpg'
-                            },
-                            DeansVP: {
-                                name: "Office of Executive Vice President",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/VPOffice.jpg'
-                            },
-                            DeansSHS: {
-                                name: "SHS Principal Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/SHSOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCITHM: {
-                name: "College of Tourism and Hospitality Management",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Lobby",
-                                points: [
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-103, 13, -54),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/hospitalityManagement.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-100, 13, -54),
-                                    new THREE.Vector3(-100, 14, -54),
-                                    new THREE.Vector3(-100, 14, -58),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cithmDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCEAT: {
-                name: "College of Engineering, Architecture and Technologies",
-                floors: {
-                    first: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 14, -31),
-                                    new THREE.Vector3(-98, 14, -32)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/engineeringDeanOffice.jpg'
-                            }
-                        }
-                    },
-                    
-                }
-            },
-            toCRIM: {
-                name: "College of Criminology Building",
-                floors: {
-                    first: {
-                        name: "Gound Floor",
-                        rooms: {
-                            main: {
-                                name: "Criminology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-35, 13, -20),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/criminologyDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewCollegeBuilding: {
-                name: "New College Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-30, 13, -22)
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/europeanGarden1.jpg'
-                            }
-                        }
-                    },
-                    third: {
-                        name: "Third Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Maritime Dean's  Office",
-                                points: [
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-22, 13, -30),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-38, 13, -6),
-                                    new THREE.Vector3(-38, 14, -6),
-                                    new THREE.Vector3(-38, 18, -6),
-                                    new THREE.Vector3(-30, 18, -7),
-                                ],
-                                duration: 25000,
-                            }
-                        }
-                    }
-                }
-            },
-            toNewHighSchoolBuilding: {
-                name: "New High School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-21, 13, -30),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-54, 13, -39),
-                                    new THREE.Vector3(-59, 13, -65),
-                                    new THREE.Vector3(-62, 13, -65)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/newHighSchoolBuilding.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewGradeSchoolBuilding: {
-                name: "New Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-18, 13, -24),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-5, 13, -21)
-                                ],
-                                duration: 20000,
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    // [Start - New Grade School]
-    },
-    newGradeSchoolBuilding: {
-        name: "New Gradeschool Building",
-        paths: {
-            toLibrary: {
-                name: "Library And Auditorium",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Library",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 13, -53)
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/library.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Auditorium",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 14, -45)
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/auditorium.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toAdminBuilding: {
-                name: "Administration Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-18, 13, -24)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/adminBuilding.jpg'
-                            },
-                            registrar: {
-                                name: "Registrar",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-18, 13, -24)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/registrar.jpg'
-                            },
-                            cashier: {
-                                name: "Cashier",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-18, 13, -24)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cashier.jpg'
-                            },
-                            admissionOffice: {
-                                name: "Admission Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-16, 13, -23),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/admissionOffice.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            ccsDeanOffice: {
-                                name: "College of Computer Studies Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-20, 13, -24),
-                                    new THREE.Vector3(-20, 13, -26),
-                                    new THREE.Vector3(-20, 14, -26),
-                                    new THREE.Vector3(-18, 14, -26),
-                                    new THREE.Vector3(-17, 14, -23),
-                                ],
-                                duration: 20000
-                            },
-                        }
-                    }
-                }
-            },
-            toOldGradeSchoolBuilding: {
-                name: "Old Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            schoolDirectorOffice: {
-                                name: "School Director Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-80, 13, 1),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/library.jpg'
-                            },
-                            graduateSchoolProgramChairpersonOffice: {
-                                name: "Graduate School Program Chairperson Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-80, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/schoolDirectorOffice.jpg'
-                            },
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Business Administration Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansNURSING: {
-                                name: "College of Nursing Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-83, 14, 3),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/nursingDeanOffice.jpg'
-                            },
-                            DeansMEDTECH: {
-                                name: "College of Medical Technology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansPTOTRT: {
-                                name: "College of PT/ OT/ RT Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-82, 14, 2),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/PTOTRTDeanOffice.jpg'
-                            },
-                            DeansCAS: {
-                                name: "College of Arts and Science Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 2),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/CASDeanOffice.jpg'
-                            },
-                            DeansPharma: {
-                                name: "College of Pharmacy Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-80, 14, 2),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/CPDeanOffice.jpg'
-                            },
-                            DeansRESEARCH: {
-                                name: "Research and Development Center ",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-75, 14, 2),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/researchAndDevelopmentCenter.jpg'
-                            },
-                            DeansEDUC: {
-                                name: "College of Education Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/EDUCOffice.jpg'
-                            },
-                            DeansVP: {
-                                name: "Office of Executive Vice President",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/VPOffice.jpg'
-                            },
-                            DeansSHS: {
-                                name: "SHS Principal Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-13, 13, -25),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/SHSOffice.jpg'
-                            }
-                        }
-                    },
-                }
-            },
-            toCITHM: {
-                name: "College of Tourism and Hospitality Management",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Lobby",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-103, 13, -54),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/hospitalityManagement.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-100, 13, -54),
-                                    new THREE.Vector3(-100, 14, -54),
-                                    new THREE.Vector3(-100, 14, -58),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/cithmDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCEAT: {
-                name: "College of Engineering, Architecture and Technologies",
-                floors: {
-                    first: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 14, -31),
-                                    new THREE.Vector3(-98, 14, -32)
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/engineeringDeanOffice.jpg'
-                            }
-                        }
-                    },
-                }
-            },
-            toCRIM: {
-                name: "College of Criminology Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Criminology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-14, 13, -23),
-                                    new THREE.Vector3(-35, 13, -20),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/criminologyDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewCollegeBuilding: {
-                name: "New College Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-14, 13, -23),
-                                    new THREE.Vector3(-30, 13, -21)
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/europeanGarden1.jpg'
-                            }
-                        }
-                    },
-                    third: {
-                        name: "Third Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Maritime Dean's  Office",
-                                points: [
-                                    new THREE.Vector3(-5, 13, -21),
-                                    new THREE.Vector3(-14, 13, -23),
-                                    new THREE.Vector3(-23, 13, -24),
-                                    new THREE.Vector3(-27, 13, -23),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-38, 13, -6),
-                                    new THREE.Vector3(-38, 14, -6),
-                                    new THREE.Vector3(-38, 18, -6),
-                                    new THREE.Vector3(-30, 18, -7),
-                                ],
-                                duration: 25000,
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    },
-    // [Start - Library]
-    library: {
-        name: "Library and Auditorium",
-        paths: {
-            toAdminBuilding: {
-                name: "Administration Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-23, 13, -30),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/adminBuilding.jpg'
-                            },
-                            registrar: {
-                                name: "Registrar",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-23, 13, -30),
-                                    new THREE.Vector3(-22, 13, -27),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/registrar.jpg'
-                            },
-                            cashier: {
-                                name: "Cashier",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-23, 13, -30),
-                                    new THREE.Vector3(-22, 13, -27),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cashier.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            room201: {
-                                name: "College of Computer Studies Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-26, 13, -28),
-                                    new THREE.Vector3(-23, 13, -28),
-                                    new THREE.Vector3(-23, 14, -28),
-                                    new THREE.Vector3(-19, 14, -29),
-                                    new THREE.Vector3(-18, 14, -24),
-                                ],
-                                duration: 4000,
-                                panoramaImage: '/assets/panoramas/ccsBuilding3.jpg'
-                            },
-                        }
-                    }
-                }
-            },
-            toOldGradeSchoolBuilding: {
-                name: "Old Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            schoolDirectorOffice: {
-                                name: "School Director Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-80, 13, 1),
-                                    
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/schoolDirectorOffice.jpg'
-                            },
-                            graduateSchoolProgramChairpersonOffice: {
-                                name: "Graduate School Program Chairperson Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-84, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/gspcOffice.jpg'
-                            },
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Business Administration Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansMEDTECH: {
-                                name: "College of Medical Technology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansNURSING: {
-                                name: "College of Nursing Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-83, 14, 3),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/nursingDeanOffice.jpg'
-                            },
-                            DeansPTOTRT: {
-                                name: "College of PT/ OT/ RT Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-82, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/PTOTRTDeanOffice.jpg'
-                            },
-                            DeansCAS: {
-                                name: "College of Arts and Science Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CASDeanOffice.jpg'
-                            },
-                            DeansPharma: {
-                                name: "College of Pharmacy Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-80, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CPDeanOffice.jpg'
-                            },
-                            DeansRESEARCH: {
-                                name: "Research and Development Center ",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-80, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/researchAndDevelopmentCenter.jpg'
-                            },
-                            DeansEDUC: {
-                                name: "College of Education Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/EDUCOffice.jpg'
-                            },
-                            DeansVP: {
-                                name: "Office of Executive Vice President",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/VPOffice.jpg'
-                            },
-                            DeansSHS: {
-                                name: "SHS Principal Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-75, 13, -35),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/SHSOffice.jpg'
-                            }
-                            
-                        }
-                    }
-                }
-            },
-            toCITHM: {
-                name: "College of Tourism and Hospitality Management",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Lobby",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-103, 13, -54),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/hospitalityManagement.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-100, 13, -54),
-                                    new THREE.Vector3(-100, 14, -54),
-                                    new THREE.Vector3(-100, 14, -58),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/cithmDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewGradeSchoolBuilding: {
-                name: "New Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-5, 13, -21)
-                                ],
-                                duration: 20000,
-                            }
-                        }
-                    }
-                }
-            },
-            toCEAT: {
-                name: "College of Engineering, Architecture and Technologies",
-                floors: {
-                    first: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 14, -31),
-                                    new THREE.Vector3(-98, 14, -32)
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/engineeringDeanOffice.jpg'
-                            }
-                        }
-                    },
-                    
-                }
-            },
-            toCRIM: {
-                name: "College of Criminology Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Criminology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-25, 13, -22),
-                                    new THREE.Vector3(-35, 13, -20),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/criminologyDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewCollegeBuilding: {
-                name: "New College Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-57, 13, -39),
-                                    new THREE.Vector3(-54, 13, -26),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/europeanGarden1.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Third Floor",
-                        rooms: {
-                            martimeDeanOffice: {
-                                name: "College of Maritime Dean's  Office",
-                                points: [
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-70, 13, -53),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-57, 13, -39),
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-56, 13, -26),
-                                    new THREE.Vector3(-56, 14, -26),
-                                    new THREE.Vector3(-56, 18, -26),
-                                    new THREE.Vector3(-30, 18, -30),
-                                    new THREE.Vector3(-28, 18, -8),
-                                    new THREE.Vector3(-35, 18, -7),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/maritimeDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    // [Start - CEAT]
-    },
-    CEAT: {
-        name: "College of Engineering, Architecture and Technologies",
-        paths: {
-            toAdminBuilding: {
-                name: "Administration Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-26, 13, -25),
-                                    new THREE.Vector3(-20, 13, -25)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/adminBuilding.jpg'
-                            },
-                            registrar: {
-                                name: "Registrar",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-26, 13, -25),
-                                    new THREE.Vector3(-20, 13, -25),
-                                    new THREE.Vector3(-20, 13, -21),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/registrar.jpg'
-                            },
-                            cashier: {
-                                name: "Cashier",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-26, 13, -25),
-                                    new THREE.Vector3(-20, 13, -25),
-                                    new THREE.Vector3(-20, 13, -21),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cashier.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            room201: {
-                                name: "College of Computer Studies Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-26, 13, -25),
-                                    new THREE.Vector3(-23, 13, -25),
-                                    new THREE.Vector3(-23, 13, -28),
-                                    new THREE.Vector3(-23, 14, -28),
-                                    new THREE.Vector3(-19, 14, -29),
-                                    new THREE.Vector3(-18, 14, -24),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/ccsBuilding3.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewGradeSchoolBuilding: {
-                name: "New Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-5, 13, -21)
-                                ],
-                                duration: 12000,
-                            }
-                        }
-                    }
-                }
-            },
-            toLibrary: {
-                name: "Library And Auditorium",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Library",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 13, -53)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/library.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Auditorium",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-84, 13, -33),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 14, -53)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/auditorium.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toOldGradeSchoolBuilding: {
-                name: "Old Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "School Director Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-80, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/schoolDirectorOffice.jpg'
-                            },
-                            graduateSchoolProgramChairpersonOffice: {
-                                name: "Graduate School Program Chairperson Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-84, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/gspcOffice.jpg'
-                            },
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Business Administration Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansMEDTECH: {
-                                name: "College of Medical Technology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansNURSING: {
-                                name: "College of Nursing Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-83, 14, 3),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/nursingDeanOffice.jpg'
-                            },
-                            DeansPTOTRT: {
-                                name: "College of PT/ OT/ RT Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-82, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/PTOTRTDeanOffice.jpg'
-                            },
-                            DeansCAS: {
-                                name: "College of Arts and Science Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CASDeanOffice.jpg'
-                            },
-                            DeansPharma: {
-                                name: "College of Pharmacy Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CPDeanOffice.jpg'
-                            },
-                            DeansRESEARCH: {
-                                name: "Research and Development Center ",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-80, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/researchAndDevelopmentCenter.jpg'
-                            },
-                            DeansEDUC: {
-                                name: "College of Education Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/EDUCOffice.jpg'
-                            },
-                            DeansVP: {
-                                name: "Office of Executive Vice President",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/VPOffice.jpg'
-                            },
-                            DeansSHS: {
-                                name: "SHS Principal Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/SHSOffice.jpg'
-                            }
-                        }
-                    },
-                }
-            },
-            toCITHM: {
-                name: "College of Tourism and Hospitality Management",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Lobby",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-103, 13, -54),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/hospitalityManagement.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-100, 13, -54),
-                                    new THREE.Vector3(-100, 14, -54),
-                                    new THREE.Vector3(-100, 14, -58),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cithmDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCRIM: {
-                name: "College of Criminology Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Criminology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -27),
-                                    new THREE.Vector3(-54, 13, -32),
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-30, 13, -30),
-                                    new THREE.Vector3(-28, 13, -22),
-                                    new THREE.Vector3(-35, 13, -20),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/criminologyDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewCollegeBuilding: {
-                name: "New College Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -27),
-                                    new THREE.Vector3(-54, 13, -32),
-                                    new THREE.Vector3(-54, 13, -26),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/europeanGarden1.jpg'
-                            }
-                        }
-                    },
-                    third: {
-                        name: "Third Floor",
-                        rooms: {
-                            martimeDeanOffice: {
-                                name: "College of Maritime Dean's  Office",
-                                points: [
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -27),
-                                    new THREE.Vector3(-54, 13, -32),
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-56, 13, -26),
-                                    new THREE.Vector3(-56, 14, -26),
-                                    new THREE.Vector3(-56, 18, -26),
-                                    new THREE.Vector3(-30, 18, -30),
-                                    new THREE.Vector3(-28, 18, -8),
-                                    new THREE.Vector3(-35, 18, -7),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/maritimeDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-        }
-    },
-    // [Start - Criminology]
-    criminologyBuilding: {
-        name: "College of Criminology Building",
-        paths: {
-            toAdminBuilding: {
-                name: "Administration Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-21, 13, -30),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/adminBuilding.jpg'
-                            },
-                            registrar: {
-                                name: "Registrar",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-21, 13, -20),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/registrar.jpg'
-                            },
-                            cashier: {
-                                name: "Cashier",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-21, 13, -20),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/cashier.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            room201: {
-                                name: "College of Computer Studies Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-23, 13, -23),
-                                    new THREE.Vector3(-23, 13, -25),
-                                    new THREE.Vector3(-23, 13, -28),
-                                    new THREE.Vector3(-23, 14, -28),
-                                    new THREE.Vector3(-19, 14, -29),
-                                    new THREE.Vector3(-18, 14, -24),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/ccsBuilding3.jpg'
-                            },
-                        }
-                    }
-                }
-            },
-            toNewGradeSchoolBuilding: {
-                name: "New Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-21, 13, -20),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-5, 13, -21)
-                                ],
-                                duration: 13000,
-                            }
-                        }
-                    }
-                }
-            },
-            toLibrary: {
-                name: "Library And Auditorium",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Library",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-30, 13, -21),
-                                    new THREE.Vector3(-30, 13, -30),
-                                    new THREE.Vector3(-53, 13, -28),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 13, -53)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/library.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Auditorium",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-30, 13, -21),
-                                    new THREE.Vector3(-30, 13, -30),
-                                    new THREE.Vector3(-53, 13, -28),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 14, -53)
-                                ],
-                                duration: 20000,
-                            }
-                        }
-                    }
-                }
-            },
-            toOldGradeSchoolBuilding: {
-                name: "Old Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            schoolDirectorOffice: {
-                                name: "School Director Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-80, 13, 1),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/schoolDirectorOffice.jpg'
-                            },
-                            graduateSchoolProgramChairpersonOffice: {
-                                name: "Graduate School Program Chairperson Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-84, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/gspcOffice.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Business Administration Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansMEDTECH: {
-                                name: "College of Medical Technology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansNURSING: {
-                                name: "College of Nursing Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-83, 14, 3),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/nursingDeanOffice.jpg'
-                            },
-                            DeansPTOTRT: {
-                                name: "College of PT/ OT/ RT Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-82, 14, 2),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/PTOTRTDeanOffice.jpg'
-                            },
-                            DeansCAS: {
-                                name: "College of Arts and Science Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 2),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/CASDeanOffice.jpg'
-                            },
-                            DeansPharma: {
-                                name: "College of Pharmacy Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-80, 14, 2),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/CPDeanOffice.jpg'
-                            },
-                            DeansRESEARCH: {
-                                name: "Research and Development Center ",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-75, 14, 2),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/researchAndDevelopmentCenter.jpg'
-                            },
-                            DeansEDUC: {
-                                name: "College of Education Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/EDUCOffice.jpg'
-                            },
-                            DeansVP: {
-                                name: "Office of Executive Vice President",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/VPOffice.jpg'
-                            },
-                            DeansSHS: {
-                                name: "SHS Principal Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-29, 13, -21),
-                                    new THREE.Vector3(-25, 13, -7),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/SHSOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCEAT: {
-                name: "College of Engineering, Architecture and Technologies",
-                floors: {
-                    first: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-28, 13, -22),
-                                    new THREE.Vector3(-30, 13, -30),
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-54, 13, -32),
-                                    new THREE.Vector3(-80, 13, -27),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 14, -31),
-                                    new THREE.Vector3(-98, 14, -32)
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/engineeringDeanOffice.jpg'
-                            }
-                        }
-                    },
-                }
-            },
-            toCITHM: {
-                name: "College of Tourism and Hospitality Management",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Lobby",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-30, 13, -21),
-                                    new THREE.Vector3(-30, 13, -30),
-                                    new THREE.Vector3(-53, 13, -28),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-103, 13, -54),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/hospitalityManagement.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-30, 13, -21),
-                                    new THREE.Vector3(-30, 13, -30),
-                                    new THREE.Vector3(-53, 13, -28),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-100, 13, -54),
-                                    new THREE.Vector3(-100, 14, -54),
-                                    new THREE.Vector3(-100, 14, -58),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/cithmDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewCollegeBuilding: {
-                name: "New College Building",
-                floors: {
-                    third: {
-                        name: "Third Floor",
-                        rooms: {
-                            martimeDeanOffice: {
-                                name: "College of Maritime Dean's  Office",
-                                points: [
-                                    new THREE.Vector3(-35, 13, -20),
-                                    new THREE.Vector3(-30, 13, -21),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-38, 13, -6),
-                                    new THREE.Vector3(-38, 14, -6),
-                                    new THREE.Vector3(-38, 18, -6),
-                                    new THREE.Vector3(-30, 18, -7),
-                                ],
-                                duration: 12000,
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    },
-    // [Start - CITHM]
-    CITHM: {
-        name: "College of Internation Tourism and Hospitality Management",
-        paths: {
-            toAdminBuilding: {
-                name: "Administration Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-21, 13, -30),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/adminBuilding.jpg'
-                            },
-                            registrar: {
-                                name: "Registrar",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-21, 13, -20),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/registrar.jpg'
-                            },
-                            cashier: {
-                                name: "Cashier",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-27, 13, -30),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-21, 13, -20),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/cashier.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            room201: {
-                                name: "College of Computer Studies Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-29, 13, -44),
-                                    new THREE.Vector3(-26, 13, -28),
-                                    new THREE.Vector3(-23, 13, -28),
-                                    new THREE.Vector3(-23, 14, -28),
-                                    new THREE.Vector3(-19, 14, -29),
-                                    new THREE.Vector3(-18, 14, -24),
-                                ],
-                                duration: 12000
-                            },
-                        }
-                    }
-                }
-            },
-            toNewGradeSchoolBuilding: {
-                name: "New Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-28, 13, -44),
-                                    new THREE.Vector3(-27, 13, -37),
-                                    new THREE.Vector3(-16, 13, -39),
-                                    new THREE.Vector3(-12, 13, -20),
-                                    new THREE.Vector3(-5, 13, -21),
-                                ],
-                                duration: 12000
-                            }
-                        }
-                    }
-                }
-            },
-            toLibrary: {
-                name: "Library And Auditorium",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Library",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 13, -53)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/library.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Auditorium",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 14, -53)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/auditorium.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toOldGradeSchoolBuilding: {
-                name: "Old Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            schoolDirectorOffice: {
-                                name: "School Director Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-80, 13, 1),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/schoolDirectorOffice.jpg'
-                            },
-                            graduateSchoolProgramChairpersonOffice: {
-                                name: "Graduate School Program Chairperson Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-84, 13, 1),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/gspcOffice.jpg'
-                            },
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Business Administration Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansMEDTECH: {
-                                name: "College of Medical Technology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansNURSING: {
-                                name: "College of Nursing Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-83, 14, 3),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/nursingDeanOffice.jpg'
-                            },
-                            DeansPTOTRT: {
-                                name: "College of PT/ OT/ RT Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-82, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/PTOTRTDeanOffice.jpg'
-                            },
-                            DeansCAS: {
-                                name: "College of Arts and Science Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 2),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/CASDeanOffice.jpg'
-                            },
-                            DeansPharma: {
-                                name: "College of Pharmacy Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 2),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/CPDeanOffice.jpg'
-                            },
-                            DeansRESEARCH: {
-                                name: "Research and Development Center ",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-80, 14, 2),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/researchAndDevelopmentCenter.jpg'
-                            },
-                            DeansEDUC: {
-                                name: "College of Education Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/EDUCOffice.jpg'
-                            },
-                            DeansVP: {
-                                name: "Office of Executive Vice President",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/VPOffice.jpg'
-                            },
-                            DeansSHS: {
-                                name: "SHS Principal Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -47),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-80, 13, -26),
-                                    new THREE.Vector3(-82, 13, -25),
-                                    new THREE.Vector3(-77, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-81, 14, 3),
-                                    new THREE.Vector3(-82, 14, -1),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/SHSOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCEAT: {
-                name: "College of Engineering, Architecture and Technologies",
-                floors: {
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-100, 13, -31),
-                                    new THREE.Vector3(-100, 14, -31),
-                                    new THREE.Vector3(-98, 14, -32)
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/engineeringDeanOffice.jpg'
-                            }
-                        }
-                    },
-                }
-            },
-            toCRIM: {
-                name: "College of Criminology Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Criminology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-53, 13, -28),
-                                    new THREE.Vector3(-30, 13, -30),
-                                    new THREE.Vector3(-30, 13, -21),
-                                    new THREE.Vector3(-35, 13, -20),
-                                ],
-                                duration: 14000,
-                                panoramaImage: '/assets/panoramas/criminologyDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewCollegeBuilding: {
-                name: "New College Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-53, 13, -28),
-                                ],
-                                duration: 25000,
-                                panoramaImage: '/assets/panoramas/europeanGarden1.jpg'
-                            }
-                        }
-                    },
-                    third: {
-                        name: "Third Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Maritime Dean's  Office",
-                                points: [
-                                    new THREE.Vector3(-103, 13, -54),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-53, 13, -28),
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-56, 13, -26),
-                                    new THREE.Vector3(-56, 14, -26),
-                                    new THREE.Vector3(-56, 18, -26),
-                                    new THREE.Vector3(-30, 18, -30),
-                                    new THREE.Vector3(-28, 18, -8),
-                                    new THREE.Vector3(-35, 18, -7),
-                                ],
-                                duration: 14000,
-                                panoramaImage: '/assets/panoramas/maritimeDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    // [Start - New College Building]
-    },
-    NewCollegeBuilding: {
-        name: "New College Building",
-        paths: {
-            toAdminBuilding: {
-                name: "Administration Building",
-                floors: {
-                    first: {
-                        name: "Main",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-30, 13, -22),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-21, 13, -30),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/adminBuilding.jpg'
-                            },
-                            registrar: {
-                                name: "Registrar",
-                                points: [
-                                    new THREE.Vector3(-30, 13, -22),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-20, 13, -19),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/registrar.jpg'
-                            },
-                            cashier: {
-                                name: "Cashier",
-                                points: [
-                                    new THREE.Vector3(-30, 13, -22),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-20, 13, -19),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/cashier.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            room201: {
-                                name: "College of Computer Studies Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-30, 13, -22),
-                                    new THREE.Vector3(-21, 13, -23),
-                                    new THREE.Vector3(-23, 13, -28),
-                                    new THREE.Vector3(-23, 14, -28),
-                                    new THREE.Vector3(-19, 14, -29),
-                                    new THREE.Vector3(-18, 14, -24),
-                                ],
-                                duration: 13000,
-                                panoramaImage: '/assets/panoramas/ccsBuilding3.jpg'
-                            },
-                        }
-                    }
-                }
-            },
-            toLibrary: {
-                name: "Library And Auditorium",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Library",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-57, 13, -39),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 13, -53),
-                                ],
-                                duration: 13000,
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Auditorium",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-57, 13, -39),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-70, 14, -53),
-                                ],
-                                duration: 13000,
-                            }
-                        }
-                    }
-                }
-            },
-            toOldGradeSchoolBuilding: {
-                name: "Old Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            schoolDirectorOffice: {
-                                name: "School Director Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-80, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/schoolDirectorOffice.jpg'
-                            },
-                            graduateSchoolProgramChairpersonOffice: {
-                                name: "Graduate School Program Chairperson Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-84, 13, 1),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/gspcOffice.jpg'
-                            },
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "College of Business Administration Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansMEDTECH: {
-                                name: "College of Medical Technology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-84, 14, 4),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CBAAMEDTECHDeanOffice.jpg'
-                            },
-                            DeansNURSING: {
-                                name: "College of Nursing Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-83, 14, 3),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/nursingDeanOffice.jpg'
-                            },
-                            DeansPTOTRT: {
-                                name: "College of PT/ OT/ RT Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-82, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/PTOTRTDeanOffice.jpg'
-                            },
-                            DeansCAS: {
-                                name: "College of Arts and Science Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-82, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CASDeanOffice.jpg'
-                            },
-                            DeansPharma: {
-                                name: "College of Pharmacy Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-80, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/CPDeanOffice.jpg'
-                            },
-                            DeansRESEARCH: {
-                                name: "Research and Development Center ",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-75, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/researchAndDevelopmentCenter.jpg'
-                            },
-                            DeansEDUC: {
-                                name: "College of Education Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-75, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/EDUCOffice.jpg'
-                            },
-                            DeansVP: {
-                                name: "Office of Executive Vice President",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-75, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/VPOffice.jpg'
-                            },
-                            DeansSHS: {
-                                name: "SHS Principal Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-78, 13, -24),
-                                    new THREE.Vector3(-73, 13, 0),
-                                    new THREE.Vector3(-90, 13, 4),
-                                    new THREE.Vector3(-90, 14, 4),
-                                    new THREE.Vector3(-75, 14, 2),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/SHSOffice.jpg'
-                            }
-                        }
-                    },
-                }
-            },
-            toCITHM: {
-                name: "College of Tourism and Hospitality Management",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            lobby: {
-                                name: "Lobby",
-                                points: [
-                                    new THREE.Vector3(-53, 13, -28),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-103, 13, -54)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/hospitalityManagement.jpg'
-                            }
-                        }
-                    },
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-53, 13, -28),
-                                    new THREE.Vector3(-67, 13, -37),
-                                    new THREE.Vector3(-77, 13, -35),
-                                    new THREE.Vector3(-94, 13, -49),
-                                    new THREE.Vector3(-102, 13, -48),
-                                    new THREE.Vector3(-100, 13, -54),
-                                    new THREE.Vector3(-100, 14, -54),
-                                    new THREE.Vector3(-100, 14, -58),
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/cithmDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCEAT: {
-                name: "College of Engineering, Architecture and Technologies",
-                floors: {
-                    second: {
-                        name: "Second Floor",
-                        rooms: {
-                            main: {
-                                name: "Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-54, 13, -26),
-                                    new THREE.Vector3(-54, 13, -32),
-                                    new THREE.Vector3(-80, 13, -27),
-                                    new THREE.Vector3(-81, 13, -31),
-                                    new THREE.Vector3(-95, 13, -40),
-                                    new THREE.Vector3(-100, 13, -39),
-                                    new THREE.Vector3(-100, 13, -31)
-                                ],
-                                duration: 20000,
-                                panoramaImage: '/assets/panoramas/engineeringDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toCRIM: {
-                name: "College of Criminology Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Criminology Dean's Office",
-                                points: [
-                                    new THREE.Vector3(-38, 13, -6),
-                                    new THREE.Vector3(-26, 13, -8),
-                                    new THREE.Vector3(-30, 13, -21),
-                                    new THREE.Vector3(-35, 13, -20),
-                                ],
-                                duration: 12000,
-                                panoramaImage: '/assets/panoramas/criminologyDeanOffice.jpg'
-                            }
-                        }
-                    }
-                }
-            },
-            toNewGradeSchoolBuilding: {
-                name: "New Grade School Building",
-                floors: {
-                    first: {
-                        name: "Ground Floor",
-                        rooms: {
-                            main: {
-                                name: "Main Building",
-                                points: [
-                                    new THREE.Vector3(-30, 13, -21),
-                                    new THREE.Vector3(-14, 13, -23),
-                                    new THREE.Vector3(-5, 13, -21)
-                                ],
-                                duration: 20000
-                            }
-                        }
-                    }
-                }           
-            }
-        }
+// Global cleanup function for page unload
+window.cleanupPanoramaResources = function() {
+    // Cancel any active animations
+    if (panoramaResources.activeAnimationId) {
+        cancelAnimationFrame(panoramaResources.activeAnimationId);
     }
+    
+    // Dispose cached textures
+    panoramaResources.textureCache.forEach(texture => {
+        texture.dispose();
+    });
+    panoramaResources.textureCache.clear();
+    
+    // Dispose pooled geometry
+    if (panoramaResources.objectPool.geometry) {
+        panoramaResources.objectPool.geometry.dispose();
+        panoramaResources.objectPool.geometry = null;
+    }
+    
+    // Dispose renderer
+    if (panoramaResources.activeRenderer) {
+        panoramaResources.activeRenderer.dispose();
+    }
+    
+    console.log("All panorama resources cleaned up.");
 };
 
+// Add cleanup to window unload
+window.addEventListener('beforeunload', window.cleanupPanoramaResources);
+
+// Point to Point Paths Functionality
 let isNavigating = false;
 
 function createLabel(text, position) {
@@ -4697,8 +1138,8 @@ function getDirection(previous, current, next) {
     const angle = v1.angleTo(v2);
 
     if (current.y !== next.y) {
-        if (next.y > current.y) return "Proceed to the staircase and move up to the next floor.";
-        if (next.y < current.y) return "Proceed to the staircase and move down to the previous floor.";
+        if (next.y > current.y) return "Up to the staircase";
+        if (next.y < current.y) return "Down to the staircase";
     }
 
     const straightThreshold = 1;
@@ -4873,7 +1314,7 @@ function animatePathWithControls(pathPoints, duration = 13000) {
         const next = pathPoints[currentSegment + 2] || end;
 
         if (currentSegment === 0) {
-            playVoiceover("Navigation started. Follow the path.");
+            playVoiceover("Navigation started.");
         } else {
             const direction = getDirection(pathPoints[currentSegment - 1], start, end);
             playVoiceover(direction);
@@ -4990,9 +1431,7 @@ function animatePathWithControls(pathPoints, duration = 13000) {
     });
 
     // Restart Navigation
-    // Add this to your student.js file, where you define the other navigation button event listeners
     restartButton.addEventListener("click", () => {
-        // Only show the restart modal if we're actually in the middle of navigation
         if (isNavigating) {
             // Show confirmation modal
             const modal = document.getElementById("restart-navigation-modal");
@@ -5302,83 +1741,7 @@ document.getElementById("navigate-btn").addEventListener("click", () => {
 
 // End of Point-to-Point Feature
 
-
-// Label Icons Legend
-const labelIcons = {
-    restroom1: {
-        position: { x: -35, y: 13, z: -21 },
-        title: 'Restroom',
-        icon: 'toilet.svg',
-        type: 'restroom'
-    },
-    restroom2: {
-        position: { x: -61, y: 13, z: -60 },
-        title: 'Restroom',
-        icon: 'toilet.svg',
-        type: 'restroom'
-    },
-    restroom3: {
-        position: { x: -89, y: 13, z: -20 },
-        title: 'Restroom',
-        icon: 'toilet.svg',
-        type: 'restroom'
-    },
-    parking1: {
-        position: { x: -13, y: 13, z: -78 },
-        title: 'Parking Area',
-        icon: 'car.svg',
-        type: 'parking'
-    },
-    parking2: {
-        position: { x: 80, y: 13, z: 57 },
-        title: 'Parking Area',
-        icon: 'car.svg',
-        type: 'parking'
-    },
-    field: {
-        position: { x: 8, y: 13, z: -52 },
-        title: 'Track and Field',
-        icon: 'person-simple-run.svg',
-        type: 'field'
-    },
-    store1: {
-        position: { x: -30, y: 13, z: -49 },
-        title: 'Bookstore',
-        icon: 'storefront.svg',
-        type: 'store'
-    },
-    eatery1: {
-        position: { x: -50.3, y: 13, z: -46 },
-        title: 'Jolliperps',
-        icon: 'eatery.svg',
-        type: 'eatery'
-    },
-    eatery2: {
-        position: { x: -89, y: 13, z: -31 },
-        title: 'Canteen',
-        icon: 'eatery.svg',
-        type: 'eatery'
-    },
-    eatery3: {
-        position: { x: -15, y: 13, z: -18 },
-        title: 'Food Stall',
-        icon: 'eatery.svg',
-        type: 'eatery'
-    },
-    eatery4: {
-        position: { x: -3, y: 13, z: -13 },
-        title: 'Canteen',
-        icon: 'eatery.svg',
-        type: 'eatery'
-    },
-    pool: {
-        position: { x: -111, y: 13, z: -27 },
-        title: 'Swimming Pool',
-        icon: 'swimming-pool.svg',
-        type: 'pool'
-    }
-};
-
+// Create Label Icons
 function createLabelIcon(labelData) {
     const labelDiv = document.createElement('div');
     labelDiv.className = `label-icon ${labelData.type}-icon`;
@@ -5462,21 +1825,8 @@ function animate(time) {
     TWEEN.update();
     
     controls.update();
-    
-    scene.children.forEach(object => {
-        if (object.userData && object.userData.hotspotId) {
-            const pulseData = object.userData.pulseScale;
-            
-            if (!object.userData.lastPulseUpdate || time - object.userData.lastPulseUpdate > 100) {
-                pulseData.value += pulseData.direction * 0.004;
-                if (pulseData.value >= 1.2 || pulseData.value <= 0.8) {
-                    pulseData.direction *= -1;
-                }
-                object.scale.set(pulseData.value, pulseData.value, pulseData.value);
-                object.userData.lastPulseUpdate = time;
-            }
-        }
-    });
+
+    animateHotspots(time);
     
     if (document.visibilityState === 'visible') {
         renderer.render(scene, camera);
@@ -6143,19 +2493,4 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-let recentLabelClick = false;
-
-function onLabelClick() {
-    recentLabelClick = true;
-    
-    setTimeout(() => {
-        recentLabelClick = false;
-    }, 300);
-}
-
-labelDiv.addEventListener('click', () => {
-    onLabelClick();
-    showLocationPopup(locationId);
 });
