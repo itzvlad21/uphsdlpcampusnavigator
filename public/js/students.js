@@ -1,9 +1,3 @@
-/**
- * UPHSD-LP Campus Navigator - Student Data
- * Contains student credentials and information for authentication
- */
-
-// Explicitly declare in global scope with window
 window.studentData = {
     "12-3456-789": {
         "id": 1,
@@ -37,12 +31,6 @@ window.studentData = {
     }
 };
 
-/**
- * Verify student credentials
- * @param {string} studentId - Student ID in format XX-XXXX-XXX
- * @param {string} password - Password to verify
- * @return {Object|null} Student data if credentials are valid, null otherwise
- */
 window.verifyStudentCredentials = function(studentId, password) {
     // Check if student exists
     if (!window.studentData[studentId]) {
@@ -60,11 +48,6 @@ window.verifyStudentCredentials = function(studentId, password) {
     return studentInfo;
 };
 
-/**
- * Get student information by ID
- * @param {string} studentId - Student ID in format XX-XXXX-XXX
- * @return {Object|null} Student data if found, null otherwise
- */
 window.getStudentInfo = function(studentId) {
     if (!window.studentData[studentId]) {
         return null;
@@ -76,22 +59,12 @@ window.getStudentInfo = function(studentId) {
     return studentInfo;
 };
 
-/**
- * Check if student ID exists
- * @param {string} studentId - Student ID to check
- * @return {boolean} True if student exists, false otherwise
- */
 window.studentExists = function(studentId) {
     return window.studentData.hasOwnProperty(studentId);
 };
 
-/**
- * Get all valid student IDs (for testing/debugging)
- * @return {Array} Array of valid student IDs
- */
 window.getValidStudentIds = function() {
     return Object.keys(window.studentData);
 };
 
-// Console log to confirm the file is loaded
 console.log("students.js loaded successfully. Available student IDs:", window.getValidStudentIds());
